@@ -44,6 +44,7 @@
 		C0CDF2A52CDF34BB00385769 /* TMMoviesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TMMoviesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0CDF2A92CDF34BB00385769 /* TMMoviesUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMMoviesUITests.swift; sourceTree = "<group>"; };
 		C0CDF2AB2CDF34BB00385769 /* TMMoviesUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMMoviesUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		C0CDF2BE2CDF36BC00385769 /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,6 +172,7 @@
 			isa = PBXGroup;
 			children = (
 				C0CDF2922CDF34BB00385769 /* Assets.xcassets */,
+				C0CDF2BE2CDF36BC00385769 /* Secrets.xcconfig */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
