@@ -63,9 +63,22 @@ final class APIService {
     }
 }
 
-enum Genre: String {
+enum Genre: String, CaseIterable {
     case popular = "popular"
     case upcoming = "upcoming"
     case topRated = "top_rated"
     case nowPlaying = "now_playing"
+    
+    var text: String {
+        switch self {
+        case .popular:
+            "Popular"
+        case .upcoming:
+            "Upcoming"
+        case .topRated:
+            "Top Rated"
+        case .nowPlaying:
+            "Now playing"
+        }
+    }
 }

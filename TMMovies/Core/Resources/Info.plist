@@ -8,5 +8,11 @@
 	<string>$(ImageURL)</string>
 	<key>TOKEN</key>
 	<string>$(TOKEN)</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Poppins-SemiBold.ttf</string>
+		<string>Montserrat-VariableFont_wght.ttf</string>
+		<string>Poppins-Medium.ttf</string>
+	</array>
 </dict>
 </plist>
