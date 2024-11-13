@@ -11,22 +11,24 @@ struct HomeView: View {
     @State var text = ""
     @StateObject var viewModel = HomeViewModel()
     var body: some View {
+        NavigationStack {
         PageWithBackground {
-            ScrollView {
-                VStack(alignment: .leading, spacing: 18) {
-                    Text("What do you want to watch?")
-                        .foregroundStyle(Color(.primaryText))
-                        .customFont(.semiBold)
-                    SearchTextField(text: $text)
-                    MainMovies(movies: viewModel.mainMovies)
-                    TabSection(
-                        selectedGenre: $viewModel.selectedGenre,
-                        homeViewModel: viewModel
-                    )
-                    TabBarMovies(movies: $viewModel.genreMovies)
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 18) {
+                        Text("What do you want to watch?")
+                            .foregroundStyle(Color(.primaryText))
+                            .customFont(.semiBold)
+                        SearchTextField(text: $text)
+                        MainMovies(movies: viewModel.mainMovies)
+                        TabSection(
+                            selectedTab: $viewModel.selectedGenre,
+                            homeViewModel: viewModel
+                        )
+                        TabBarMovies(movies: $viewModel.genreMovies)
+                    }
                 }
+                .padding(.horizontal, 24)
             }
-            .padding(.horizontal, 24)
         }
     }
 }
@@ -44,9 +46,13 @@ struct MainMovies: View {
                     }
                 } else {
                     ForEach(Array(movies.enumerated()), id: \.offset) { index, movie in
-                        ImageWithNum(
-                            imageData: (movie.posterImage, index + 1)
-                        )
+                        NavigationLink(destination: {
+                            DetailsView(movie: movie)
+                        }, label: {
+                            ImageWithNum(
+                                imageData: (movie.posterImage, index + 1)
+                            )
+                        })
                     }
                 }
             }
@@ -55,16 +61,20 @@ struct MainMovies: View {
     }
 }
 
-struct TabSection: View {
-    @Binding var selectedGenre: Genre?
+private struct TabSection: View {
+    @Binding var selectedTab: String?
     @ObservedObject var homeViewModel: HomeViewModel
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(alignment: .top, spacing: 30) {
                 ForEach(Genre.allCases, id: \.rawValue) { genre in
                     TextTabItem(
-                        genre: genre,
-                        viewModel: homeViewModel
+                        text: genre.text,
+                                selectedText: $homeViewModel.selectedGenre,
+                                action: {
+                        homeViewModel.setGenre(genre: genre)
+                    }
+                        
                     )
                 }
             }
@@ -85,8 +95,13 @@ struct TabBarMovies: View {
                 } else {
                     ForEach(Array(movies.enumerated()), id: \.offset) {
                         (index, movie) in
-                        RoundedImage(url: movie.posterImage)
-                            .frame(height: 145)
+                        NavigationLink(destination: {
+                            DetailsView(movie: movie)
+                        }, label: {
+                            RoundedImage(url: movie.posterImage)
+                                .frame(height: 145)
+                        })
+                       
                     }
                 }
             })

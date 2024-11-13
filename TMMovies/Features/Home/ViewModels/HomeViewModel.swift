@@ -11,10 +11,10 @@ import Combine
 final class HomeViewModel: ObservableObject {
     @Published var mainMovies: [Movie] = []
     @Published var genreMovies: [Movie] = []
-    @Published var selectedGenre: Genre? = Genre.allCases.first
+    @Published var selectedGenre: String? = Genre.allCases.first?.text
     init() {
         getMainMovies()
-        getMoviesForGenre(genre: selectedGenre ?? .nowPlaying)
+        getMoviesForGenre(genre: determineGenre(text: selectedGenre) ?? .nowPlaying)
     }
     
     private let service = APIService()
@@ -22,10 +22,18 @@ final class HomeViewModel: ObservableObject {
     
     
     func setGenre(genre: Genre) {
-        selectedGenre = genre
+        selectedGenre = genre.text
         getMoviesForGenre(genre: genre)
     }
     
+    private func determineGenre(text: String?) -> Genre? {
+        for genre in Genre.allCases {
+            if genre.text == text {
+                return genre
+            }
+        }
+        return nil
+    }
     private func getMainMovies() {
         do {
             try service.getMovies(genre: Genre.nowPlaying)

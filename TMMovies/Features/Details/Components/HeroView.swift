@@ -15,18 +15,21 @@ struct HeroView: View {
     let bounds = UIScreen.main.bounds
     var body: some View {
         ZStack {
-            KFImage(posterImage)
+            KFImage(image)
                 .placeholder {
                     Color.red
                 }
                 .resizable()
                 .frame(height: 210)
-            RoundedImage(url: image)
-                .frame(width: 95,height: 120)
+            RoundedImage(
+                url: posterImage
+            )
+                .frame(width: 95, height: 120)
                 .offset(
                     .init(
                         width: -120,
-                        height: 100)
+                        height: 100
+                    )
                 )
             Text(movieTitle)
                 .multilineTextAlignment(.leading)
@@ -43,7 +46,7 @@ struct HeroView: View {
                         height: 145)
                 )
         }
-        .padding(.bottom, 24)
+        .padding(.bottom, 56)
     }
 }
 
@@ -53,7 +56,8 @@ struct HeroView: View {
         HeroView(
             posterImage: nil,
             image: nil,
-            movieTitle: "Spiderman No way home"
+            movieTitle: "Spiderman No wsdfsfasay home"
         )
     }
 }
+

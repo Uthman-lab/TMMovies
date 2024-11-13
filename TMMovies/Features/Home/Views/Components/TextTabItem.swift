@@ -8,21 +8,22 @@
 import SwiftUI
 
 struct TextTabItem: View {
-    let genre: Genre
-    @ObservedObject var viewModel: HomeViewModel
+    let text: String
+    @Binding var selectedText: String?
+    var action: () -> Void
 
     var body: some View {
         Button(action: {
             withAnimation {
-                viewModel.setGenre(genre: genre)
+                action()
             }
         }) {
             VStack(spacing: 4) {
-                Text(genre.text)
+                Text(text)
                     .customFont(.medium, size: 14)
                     .foregroundStyle(Color(.primaryText))
-                if viewModel.selectedGenre == genre {
-                    Text(genre.rawValue)
+                if selectedText == text {
+                    Text(text)
                         .customFont(.medium, size: 14)
                         .foregroundStyle(.clear)
                         .frame(height: 4)
@@ -37,5 +38,9 @@ struct TextTabItem: View {
 }
 
 #Preview {
-    TextTabItem(genre: .nowPlaying, viewModel: HomeViewModel())
+    TextTabItem(
+        text: "Hello",
+        selectedText: .constant("Hello"),
+        action: {}
+    )
 }

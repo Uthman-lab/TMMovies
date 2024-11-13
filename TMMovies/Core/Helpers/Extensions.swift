@@ -44,6 +44,7 @@ extension View {
 enum Poppins: String {
     case semiBold = "Poppins-SemiBold"
     case medium = "Poppins-Medium"
+    case regular = "Poppins-Regular"
 }
 
 enum Montserrat: String {
