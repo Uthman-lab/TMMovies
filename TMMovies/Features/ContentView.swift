@@ -12,31 +12,39 @@ struct ContentView: View {
         UITabBar.appearance().unselectedItemTintColor = .secondaryText
     }
     var body: some View {
-        TabView {
-            HomeView()
-                .tabItem {
-                    TabBarItem(
-                        iconName: .homeIcon,
-                        label: "Home"
-                    )
-                }
-            Text("Search")
-                .tabItem {
-                    VStack {
+        NavigationStack {
+            TabView {
+                HomeView()
+                    .tabItem {
                         TabBarItem(
-                            iconName: .searchIcon2, label: "Search"
+                            iconName: .homeIcon,
+                            label: "Home"
                         )
                     }
+                SearchView()
+                    .tabItem {
+                        VStack {
+                            TabBarItem(
+                                iconName: .searchIcon2, label: "Search"
+                            )
+                        }
+                    }
+                PageWithBackground {
+                    HStack {
+                        Spacer()
+                        Image(.noResultsIcon)
+                        Spacer()
+                    }
                 }
-            Text("Watch list")
                 .tabItem {
                     TabBarItem(
                         iconName: .watchListIcon,
                         label: "Watch List"
                     )
                 }
+            }
+            .tabViewStyle(.automatic)
         }
-        .tabViewStyle(.automatic)
     }
 }
 

@@ -15,8 +15,7 @@ struct RoundedImage: View {
             .placeholder({
                 ZStack(alignment: .center) {
                     Color.black
-                    ProgressView()
-                        .tint(Color(.background))
+                    LoadingView()
                 }
             })
             .resizable()

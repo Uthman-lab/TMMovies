@@ -11,7 +11,6 @@ struct HomeView: View {
     @State var text = ""
     @StateObject var viewModel = HomeViewModel()
     var body: some View {
-        NavigationStack {
         PageWithBackground {
                 ScrollView {
                     VStack(alignment: .leading, spacing: 18) {
@@ -28,8 +27,8 @@ struct HomeView: View {
                     }
                 }
                 .padding(.horizontal, 24)
+                .padding(.bottom)
             }
-        }
     }
 }
 

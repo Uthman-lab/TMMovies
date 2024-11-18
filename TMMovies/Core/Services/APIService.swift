@@ -14,15 +14,34 @@ final class APIService {
     var cancellables = Set<AnyCancellable>()
     
     func getMovies(genre: Genre) throws -> AnyPublisher<MovieResponse, Error> {
-       try session.getRequest(path: genre.rawValue)
+        try session.getRequest(path: moviePath(genre.rawValue))
     }
     
     func getReviews(movie: Movie) throws -> AnyPublisher<MovieReviewResponse, Error> {
-        try session.getRequest(path: "\(movie.id)/reviews")
+        try session.getRequest(path: moviePath("\(movie.id)/reviews"))
     }
     
     func getCasts(movie: Movie) throws -> AnyPublisher<CastResponse, Error> {
-        try session.getRequest(path: "\(movie.id)/credits")
+        try session.getRequest(path: moviePath("\(movie.id)/credits"))
+    }
+    
+    func searchMovies(
+        text: String,
+        page: Int = 1
+    ) throws -> AnyPublisher<MovieResponse, Error> {
+        let query = [
+            URLQueryItem(name: "query", value: text),
+            URLQueryItem(name: "include_adult", value: "true")
+        ]
+        return try session.getRequest(
+            path: "search/movie",
+            page: page,
+            queryParameters: query
+        )
+    }
+    
+    private func moviePath(_ path: String) -> String {
+        "movie/\(path)"
     }
 }
 
