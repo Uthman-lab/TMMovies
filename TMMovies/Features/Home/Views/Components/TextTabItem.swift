@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct TextTabItem: View {
-    let text: String
-    @Binding var selectedText: String?
+struct GenreTabItem: View {
+    let genre: Genre
+    @Binding var selectedTab: Genre
     var action: () -> Void
 
     var body: some View {
@@ -19,11 +19,11 @@ struct TextTabItem: View {
             }
         }) {
             VStack(spacing: 4) {
-                Text(text)
+                Text(genre.text)
                     .customFont(.medium, size: 14)
                     .foregroundStyle(Color(.primaryText))
-                if selectedText == text {
-                    Text(text)
+                if selectedTab == genre {
+                    Text(genre.text)
                         .customFont(.medium, size: 14)
                         .foregroundStyle(.clear)
                         .frame(height: 4)
@@ -38,9 +38,9 @@ struct TextTabItem: View {
 }
 
 #Preview {
-    TextTabItem(
-        text: "Hello",
-        selectedText: .constant("Hello"),
+    GenreTabItem(
+        genre: .nowPlaying,
+        selectedTab: .constant(.nowPlaying),
         action: {}
     )
 }

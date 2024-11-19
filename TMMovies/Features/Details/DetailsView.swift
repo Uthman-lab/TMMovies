@@ -57,7 +57,7 @@ private struct TabSection: View {
             ForEach(MovieDetailsSection.allCases) { section in
                 TextTabItem(
                     text: section.rawValue,
-                    selectedText: $selectedSection,
+                    selectedTab: $selectedSection,
                     action: {
                         selectedSection = section.rawValue
                     })
@@ -155,4 +155,34 @@ enum MovieDetailsSection: String, CaseIterable, Identifiable {
 
 #Preview {
     DetailsView(movie: Movie.dummyMovie)
+}
+
+struct TextTabItem: View {
+    let text: String
+    @Binding var selectedTab: String?
+    var action: () -> Void
+
+    var body: some View {
+        Button(action: {
+            withAnimation {
+                action()
+            }
+        }) {
+            VStack(spacing: 4) {
+                Text(text)
+                    .customFont(.medium, size: 14)
+                    .foregroundStyle(Color(.primaryText))
+                if selectedTab == text {
+                    Text(text)
+                        .customFont(.medium, size: 14)
+                        .foregroundStyle(.clear)
+                        .frame(height: 4)
+                        .background(
+                            Rectangle()
+                                .foregroundStyle(Color(.secondaryIcon))
+                        )
+                }
+            }
+        }
+    }
 }

@@ -17,13 +17,23 @@ struct HomeView: View {
                         Text("What do you want to watch?")
                             .foregroundStyle(Color(.primaryText))
                             .customFont(.semiBold)
-                        SearchTextField(text: $text)
-                        MainMovies(movies: viewModel.mainMovies)
+                        
+                        MainMovies(
+                            movies: viewModel.mainMovies,
+                        onPaginationAction: {
+                            viewModel.getTrendingMovies()
+                        })
                         TabSection(
-                            selectedTab: $viewModel.selectedGenre,
                             homeViewModel: viewModel
                         )
-                        TabBarMovies(movies: $viewModel.genreMovies)
+                        TabBarMovies(
+                            moviesState: viewModel.genreMoviesState,
+                            onPaginationAction: {
+                                viewModel.getPaginatedMovies()
+                            },
+                            selectedGenre: $viewModel.selectedGenre
+                        )
+                           
                     }
                 }
                 .padding(.horizontal, 24)
@@ -34,9 +44,11 @@ struct HomeView: View {
 
 struct MainMovies: View {
     let movies: [Movie]
+    var onPaginationAction: () -> Void = {}
+    
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 30) {
+            LazyHStack (spacing: 30) {
                 if movies.isEmpty {
                     ForEach(1..<5) { index in
                         ImageWithNum(
@@ -53,6 +65,10 @@ struct MainMovies: View {
                             )
                         })
                     }
+                    LoadingView()
+                        .onAppear {
+                            onPaginationAction()
+                        }
                 }
             }
         }
@@ -61,15 +77,14 @@ struct MainMovies: View {
 }
 
 private struct TabSection: View {
-    @Binding var selectedTab: String?
     @ObservedObject var homeViewModel: HomeViewModel
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(alignment: .top, spacing: 30) {
                 ForEach(Genre.allCases, id: \.rawValue) { genre in
-                    TextTabItem(
-                        text: genre.text,
-                                selectedText: $homeViewModel.selectedGenre,
+                    GenreTabItem(
+                        genre: genre,
+                                selectedTab: $homeViewModel.selectedGenre,
                                 action: {
                         homeViewModel.setGenre(genre: genre)
                     }
@@ -81,26 +96,32 @@ private struct TabSection: View {
     }
 }
 struct TabBarMovies: View {
-    @Binding var movies: [Movie]
+    var moviesState: [Genre:[Movie]]
+    var onPaginationAction: () -> Void = {}
+    @Binding var selectedGenre: Genre
     var body: some View {
         ScrollView {
             LazyVGrid(columns: formGrid(), alignment: .leading, content: {
-                if movies.isEmpty {
-                    ForEach(1..<5) {
-                        _ in
-                        RoundedImage(url: nil)
-                            .frame(height: 145)
-                    }
-                } else {
-                    ForEach(Array(movies.enumerated()), id: \.offset) {
-                        (index, movie) in
-                        NavigationLink(destination: {
-                            DetailsView(movie: movie)
-                        }, label: {
-                            RoundedImage(url: movie.posterImage)
-                                .frame(height: 145)
-                        })
-                       
+                switch moviesState[selectedGenre] {
+                case .none:
+                    loadingState()
+                case .some(let movies):
+                    if movies.isEmpty {
+                        loadingState()
+                    } else {
+                        ForEach(Array(movies.enumerated()), id: \.offset) {
+                            (index, movie) in
+                            NavigationLink(destination: {
+                                DetailsView(movie: movie)
+                            }, label: {
+                                RoundedImage(url: movie.posterImage)
+                                    .frame(height: 145)
+                            })
+                        }
+                        LoadingView() 
+                            .onAppear {
+                           onPaginationAction()
+                        }
                     }
                 }
             })
@@ -108,6 +129,13 @@ struct TabBarMovies: View {
         .frame(height: 400)
     }
     
+    func loadingState() -> some View {
+        ForEach(1..<5) {
+            _ in
+            RoundedImage(url: nil)
+                .frame(height: 145)
+        }
+    }
     func formGrid() -> [GridItem] {
         let bounds = UIScreen.main.bounds
         var griditems: [GridItem] = []

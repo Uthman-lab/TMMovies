@@ -90,10 +90,10 @@ final class SearchViewModel: ObservableObject {
             isLastPage = isLastPage(
                 totalPages: moviesResult.totalPages
             )
-            movies += moviesResult.results
+            movies += moviesResult.movies
             searchState = .success(movies: movies)
         } else {
-            movies = moviesResult.results
+            movies = moviesResult.movies
             searchState = movies.isEmpty
                 ? .error(message: AppStrings.noResultFound)
                 : .success(movies: movies)

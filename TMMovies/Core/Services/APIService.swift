@@ -9,36 +9,47 @@ import Foundation
 import Combine
 
 final class APIService {
+    
+    // MARK: - public variables
+    
     let configurations = APIConfiguration.main
     let session = NetworkSession()
     var cancellables = Set<AnyCancellable>()
     
-    func getMovies(genre: Genre) throws -> AnyPublisher<MovieResponse, Error> {
-        try session.getRequest(path: moviePath(genre.rawValue))
+    // MARK: - public methods
+    
+    func getMovies(genre: Genre, page: Int)  -> AnyPublisher<MovieResponse, Error> {
+         session.getRequest(path: moviePath(genre.rawValue), page: page)
     }
     
-    func getReviews(movie: Movie) throws -> AnyPublisher<MovieReviewResponse, Error> {
-        try session.getRequest(path: moviePath("\(movie.id)/reviews"))
+    func getMovies(path: String, page: Int)  -> AnyPublisher<MovieResponse, Error> {
+         session.getRequest(path: path, page: page)
+    }
+
+    func getReviews(movie: Movie)  -> AnyPublisher<MovieReviewResponse, Error> {
+         session.getRequest(path: moviePath("\(movie.id)/reviews"))
     }
     
-    func getCasts(movie: Movie) throws -> AnyPublisher<CastResponse, Error> {
-        try session.getRequest(path: moviePath("\(movie.id)/credits"))
+    func getCasts(movie: Movie)  -> AnyPublisher<CastResponse, Error> {
+         session.getRequest(path: moviePath("\(movie.id)/credits"))
     }
     
     func searchMovies(
         text: String,
         page: Int = 1
-    ) throws -> AnyPublisher<MovieResponse, Error> {
+    )  -> AnyPublisher<MovieResponse, Error> {
         let query = [
             URLQueryItem(name: "query", value: text),
             URLQueryItem(name: "include_adult", value: "true")
         ]
-        return try session.getRequest(
+        return  session.getRequest(
             path: "search/movie",
             page: page,
             queryParameters: query
         )
     }
+    
+    // MARK: - private methods
     
     private func moviePath(_ path: String) -> String {
         "movie/\(path)"

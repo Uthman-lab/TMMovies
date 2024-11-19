@@ -15,12 +15,17 @@ final class NetworkSession {
         path: String,
         page: Int = 1,
         queryParameters: [URLQueryItem] = []
-    ) throws -> AnyPublisher<T, Error> {
-        let request = try createRequest(
+    )  -> AnyPublisher<T, Error> {
+       guard let request = try? createRequest(
             path: path,
             page: page,
             queryParameters: queryParameters
-        )
+       ) else {
+           return Fail(
+            error: CustomErrors.decode("can't parse url")
+           )
+           .eraseToAnyPublisher()
+       }
         return URLSession.shared.dataTaskPublisher(for: request)
             .map { result in
               return  result.data }
