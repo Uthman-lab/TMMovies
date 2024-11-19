@@ -28,13 +28,7 @@ struct ContentView: View {
                             )
                         }
                     }
-                PageWithBackground {
-                    HStack {
-                        Spacer()
-                        Image(.noResultsIcon)
-                        Spacer()
-                    }
-                }
+               WishListView()
                 .tabItem {
                     TabBarItem(
                         iconName: .watchListIcon,

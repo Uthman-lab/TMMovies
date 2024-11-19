@@ -12,6 +12,7 @@ struct TMMoviesApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .modelContainer(container)
         }
     }
 }

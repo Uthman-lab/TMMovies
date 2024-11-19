@@ -18,6 +18,7 @@ struct DetailsView: View {
     // MARK: - variables
 
     let movie: Movie
+    @ObservedObject var wishViewModel = WishViewModel.shared
     @State var selectedSection: String? = MovieDetailsSection.aboutMovie.rawValue
     @StateObject var detailsViewModel: DetailsViewModel
 
@@ -47,8 +48,22 @@ struct DetailsView: View {
             }
         }
         .useCustomBackButton()
-        .useTrailingNavbarView(.wishIcon)
-
+        .useTrailingNavbarView(
+            wishViewModel.wishList.contains(
+                where: {$0.id == movie.id}
+            ) ? .wishIconActive : .wishIcon,
+            onTap: {
+                if wishViewModel.wishList.contains(
+                    where: {$0.id == movie.id}
+                )  {
+                    print("remove")
+                    wishViewModel.removeMovie(movie)
+                } else {
+                    
+                    wishViewModel.addMovieToWish(movie)
+                }
+            })
+        
     }
 }
 
