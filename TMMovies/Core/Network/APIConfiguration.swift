@@ -48,7 +48,7 @@ final class APIConfiguration {
         }
         return url
     }
-    
+
     func parseImageURL(path: String) -> URL? {
         guard let url = URL(string: fetchURLString(key: .imageURL) + path) else {
             return nil
@@ -66,7 +66,7 @@ final class APIConfiguration {
         }
         return secret
     }
-    
+
     private func fetchURLString(key: SecretKey) -> String {
         "https://\(fetchSecret(key: key))"
     }

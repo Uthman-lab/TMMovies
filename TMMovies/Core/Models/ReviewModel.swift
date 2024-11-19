@@ -64,7 +64,7 @@ extension MovieReview {
     var avartarURL: URL? {
         APIConfiguration.main.parseImageURL(path: self.authorDetails.avatarPath ?? "")
     }
-    
+
    static var dummyReview: MovieReview {
         MovieReview(
             author: "CinemaSerf",
@@ -82,4 +82,3 @@ extension MovieReview {
             url: "https://www.themoviedb.org/review/670ca5ab4111be4f0274fbf4")
     }
 }
-

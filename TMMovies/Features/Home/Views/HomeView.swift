@@ -11,18 +11,18 @@ struct HomeView: View {
     @State var text = ""
     @StateObject var viewModel = HomeViewModel()
     var body: some View {
-        PageWithBackground {
+        NavigationStack {
+            PageWithBackground {
                 ScrollView {
                     VStack(alignment: .leading, spacing: 18) {
                         Text("What do you want to watch?")
                             .foregroundStyle(Color(.primaryText))
                             .customFont(.semiBold)
-                        
                         MainMovies(
                             movies: viewModel.mainMovies,
-                        onPaginationAction: {
-                            viewModel.getTrendingMovies()
-                        })
+                            onPaginationAction: {
+                                viewModel.getTrendingMovies()
+                            })
                         TabSection(
                             homeViewModel: viewModel
                         )
@@ -33,22 +33,26 @@ struct HomeView: View {
                             },
                             selectedGenre: $viewModel.selectedGenre
                         )
-                           
+                        
                     }
                 }
                 .padding(.horizontal, 24)
                 .padding(.bottom)
             }
+            .useTrailingNavbarView(.settingIcon, onTap: {
+                print("hello theer")
+            })
+        }
     }
 }
 
 struct MainMovies: View {
     let movies: [Movie]
     var onPaginationAction: () -> Void = {}
-    
+
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            LazyHStack (spacing: 30) {
+            LazyHStack(spacing: 30) {
                 if movies.isEmpty {
                     ForEach(1..<5) { index in
                         ImageWithNum(
@@ -88,15 +92,16 @@ private struct TabSection: View {
                                 action: {
                         homeViewModel.setGenre(genre: genre)
                     }
-                        
+
                     )
                 }
             }
         }
     }
 }
+
 struct TabBarMovies: View {
-    var moviesState: [Genre:[Movie]]
+    var moviesState: [Genre: [Movie]]
     var onPaginationAction: () -> Void = {}
     @Binding var selectedGenre: Genre
     var body: some View {
@@ -110,7 +115,7 @@ struct TabBarMovies: View {
                         loadingState()
                     } else {
                         ForEach(Array(movies.enumerated()), id: \.offset) {
-                            (index, movie) in
+                            (_, movie) in
                             NavigationLink(destination: {
                                 DetailsView(movie: movie)
                             }, label: {
@@ -118,7 +123,7 @@ struct TabBarMovies: View {
                                     .frame(height: 145)
                             })
                         }
-                        LoadingView() 
+                        LoadingView()
                             .onAppear {
                            onPaginationAction()
                         }
@@ -128,7 +133,7 @@ struct TabBarMovies: View {
         }
         .frame(height: 400)
     }
-    
+
     func loadingState() -> some View {
         ForEach(1..<5) {
             _ in

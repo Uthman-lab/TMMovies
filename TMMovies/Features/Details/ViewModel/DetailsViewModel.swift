@@ -9,28 +9,28 @@ import Foundation
 import Combine
 
 class DetailsViewModel: ObservableObject {
-    
+
     // MARK: - life cycle methods
-    
+
     init(movie: Movie) {
         self.movie = movie
         getReviews()
         getCastMembers()
     }
-    
+
     // MARK: - private variables
-    
+
     private let apiService = APIService()
     private let movie: Movie
     var cancellables = Set<AnyCancellable>()
-    
+
     // MARK: - public variables
-    
+
     @Published var reviews: [MovieReview] = []
     @Published var castMembers: [CastMember] = []
-    
+
     // MARK: - public methods
-    
+
     func getReviews() {
         do {
             try apiService.getReviews(movie: movie)
@@ -44,7 +44,7 @@ class DetailsViewModel: ObservableObject {
             reviews = []
         }
     }
-    
+
     func getCastMembers() {
         do {
             try apiService.getCasts(movie: movie)

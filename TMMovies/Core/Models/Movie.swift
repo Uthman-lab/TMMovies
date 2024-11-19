@@ -33,7 +33,7 @@ struct Movie: Codable, Hashable, Identifiable {
     let video: Bool
     let voteAverage: Double
     let voteCount: Int
-    
+
     enum CodingKeys: String, CodingKey {
         case adult
         case backdropPath = "backdrop_path"
@@ -56,7 +56,7 @@ extension Movie {
     var coverImage: URL? {
         APIConfiguration.main.parseImageURL(path: backdropPath ?? "")
     }
-    
+
     var posterImage: URL? {
         APIConfiguration.main.parseImageURL(path: posterPath ?? "")
     }
@@ -78,4 +78,3 @@ extension Movie {
         )
     }
 }
-

@@ -29,7 +29,7 @@ extension View {
                 .custom(font.rawValue, size: size)
             )
     }
-    
+
     func customFont(
         _ font: Montserrat = .normal,
         size: CGFloat = 18

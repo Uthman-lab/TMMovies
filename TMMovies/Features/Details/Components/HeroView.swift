@@ -35,7 +35,7 @@ struct HeroView: View {
                 .multilineTextAlignment(.leading)
                 .lineLimit(/*@START_MENU_TOKEN@*/2/*@END_MENU_TOKEN@*/)
                 .frame(
-                    width:  bounds.width * 0.62,
+                    width: bounds.width * 0.62,
                     height: 60, alignment: .topLeading
                 )
                 .foregroundStyle(Color(.primaryText))
@@ -60,4 +60,3 @@ struct HeroView: View {
         )
     }
 }
-

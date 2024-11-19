@@ -56,7 +56,7 @@ private struct IconLabelView: View {
                 .lineLimit(1)
         }
         .foregroundStyle(color)
-        
+
     }
 }
 

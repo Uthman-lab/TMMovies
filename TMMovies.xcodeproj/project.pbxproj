@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		C04DC5D72CE79B8B00440639 /* Debouncer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04DC5D62CE79B8B00440639 /* Debouncer.swift */; };
 		C04DC5D92CE90B1100440639 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04DC5D82CE90B1100440639 /* LoadingView.swift */; };
+		C04DC5DB2CECA08E00440639 /* CustomBackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04DC5DA2CECA08E00440639 /* CustomBackButton.swift */; };
+		C04DC5DD2CECA17D00440639 /* CustomTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04DC5DC2CECA17D00440639 /* CustomTitle.swift */; };
+		C04DC5DF2CECA3D000440639 /* TrailingNavIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04DC5DE2CECA3D000440639 /* TrailingNavIcon.swift */; };
 		C08C7AE42CE4E78000D94350 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08C7AE32CE4E78000D94350 /* SearchView.swift */; };
 		C08C7AE62CE4E79000D94350 /* MovieCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08C7AE52CE4E79000D94350 /* MovieCard.swift */; };
 		C08C7AE92CE4EFC700D94350 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08C7AE82CE4EFC700D94350 /* SearchViewModel.swift */; };
@@ -105,6 +108,9 @@
 /* Begin PBXFileReference section */
 		C04DC5D62CE79B8B00440639 /* Debouncer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Debouncer.swift; sourceTree = "<group>"; };
 		C04DC5D82CE90B1100440639 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		C04DC5DA2CECA08E00440639 /* CustomBackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomBackButton.swift; sourceTree = "<group>"; };
+		C04DC5DC2CECA17D00440639 /* CustomTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTitle.swift; sourceTree = "<group>"; };
+		C04DC5DE2CECA3D000440639 /* TrailingNavIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailingNavIcon.swift; sourceTree = "<group>"; };
 		C08C7AE32CE4E78000D94350 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		C08C7AE52CE4E79000D94350 /* MovieCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCard.swift; sourceTree = "<group>"; };
 		C08C7AE82CE4EFC700D94350 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
@@ -388,7 +394,10 @@
 			isa = PBXGroup;
 			children = (
 				C0CDF2CD2CDFA58F00385769 /* SearchTextField.swift */,
+				C04DC5DE2CECA3D000440639 /* TrailingNavIcon.swift */,
 				C04DC5D82CE90B1100440639 /* LoadingView.swift */,
+				C04DC5DA2CECA08E00440639 /* CustomBackButton.swift */,
+				C04DC5DC2CECA17D00440639 /* CustomTitle.swift */,
 				C0CDF2CF2CDFAD1E00385769 /* RoundedImage.swift */,
 				C0CDF2DA2CDFBF0F00385769 /* PageWithBackground.swift */,
 			);
@@ -694,6 +703,7 @@
 				C0CDF2C52CDF6E8000385769 /* APIService.swift in Sources */,
 				C0CDF3402CE09E2300385769 /* DetailsViewChip.swift in Sources */,
 				C0CDF2D02CDFAD1E00385769 /* RoundedImage.swift in Sources */,
+				C04DC5DD2CECA17D00440639 /* CustomTitle.swift in Sources */,
 				C0CDF2912CDF34BA00385769 /* ContentView.swift in Sources */,
 				C0CDF3352CDFCE7900385769 /* TextTabItem.swift in Sources */,
 				C0CDF2C72CDF7BA200385769 /* Movie.swift in Sources */,
@@ -711,7 +721,9 @@
 				C0CDF2C02CDF37BA00385769 /* APIConfiguration.swift in Sources */,
 				C08C7AE62CE4E79000D94350 /* MovieCard.swift in Sources */,
 				C0CDF33C2CE01B4A00385769 /* DetailsView.swift in Sources */,
+				C04DC5DB2CECA08E00440639 /* CustomBackButton.swift in Sources */,
 				C0B4795E2CE24A3A00323E0C /* ReviewModel.swift in Sources */,
+				C04DC5DF2CECA3D000440639 /* TrailingNavIcon.swift in Sources */,
 				C0CDF3382CE00B5700385769 /* HomeViewModel.swift in Sources */,
 				C0CDF28F2CDF34BA00385769 /* TMMoviesApp.swift in Sources */,
 				C0B479672CE2659100323E0C /* MovieCast.swift in Sources */,

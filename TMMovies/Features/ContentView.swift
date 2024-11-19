@@ -12,7 +12,6 @@ struct ContentView: View {
         UITabBar.appearance().unselectedItemTintColor = .secondaryText
     }
     var body: some View {
-        NavigationStack {
             TabView {
                 HomeView()
                     .tabItem {
@@ -44,14 +43,13 @@ struct ContentView: View {
                 }
             }
             .tabViewStyle(.automatic)
-        }
     }
 }
 
 struct TabBarItem: View {
     let iconName: ImageResource
     let label: String
-    
+
     var body: some View {
         VStack {
             Image(iconName)

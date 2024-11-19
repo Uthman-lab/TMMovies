@@ -9,32 +9,32 @@ import Foundation
 import Combine
 
 final class HomeViewModel: ObservableObject {
-    
+
     // MARK: - life cycle methods
-    
+
     init() {
         getTrendingMovies()
         getAllGenreMovieTypes()
     }
-    
+
     // MARK: - public variables
     @Published var mainMovies: [Movie] = []
     @Published var genreMoviesState: [Genre: [Movie]] = [:]
     @Published var selectedGenre: Genre = .popular
-    
+
     // MARK: - private variables
-    
+
     private var paginationState: [Genre: (page: Int, totalPages: Int)] = [:]
     private var trendingMoviesPaginationState: (page: Int, totalPages: Int)?
     private let service = APIService()
     private var cancellables = Set<AnyCancellable>()
-    
+
     // MARK: public methods
-    
+
     func setGenre(genre: Genre) {
         selectedGenre = genre
     }
-    
+
     func getPaginatedMovies() {
         let page = paginationState[selectedGenre]?.page ?? 1
         if canGetMoreMovies(paginationState[selectedGenre]) {
@@ -58,7 +58,7 @@ final class HomeViewModel: ObservableObject {
             }
         }
     }
-    
+
     func getTrendingMovies() {
         let page = trendingMoviesPaginationState?.page ?? 1
         if canGetMoreMovies(trendingMoviesPaginationState) {
@@ -71,7 +71,7 @@ final class HomeViewModel: ObservableObject {
                                 contentsOf: movieResults.movies
                             )
                             self?.trendingMoviesPaginationState = (
-                                movieResults.page + 1, 
+                                movieResults.page + 1,
                                 movieResults.totalPages
                             )
                         }
@@ -79,9 +79,9 @@ final class HomeViewModel: ObservableObject {
                 .store(in: &cancellables)
         }
     }
-    
+
     // MARK: - private methods
-    
+
     private func canGetMoreMovies(
         _ state: (page: Int, totalPages: Int)?
     ) -> Bool {
@@ -89,15 +89,15 @@ final class HomeViewModel: ObservableObject {
             return state.page < state.totalPages || state.page == 1
         }
         return true
-        
+
     }
-    
+
     private func getAllGenreMovieTypes() {
         for genre in Genre.allCases {
             getMoviesForGenre(genre: genre)
         }
     }
-    
+
     private func getMoviesForGenre(genre: Genre) {
         getMovies(genre: genre, page: 1) { [weak self] response in
             DispatchQueue.main.async {
@@ -109,7 +109,7 @@ final class HomeViewModel: ObservableObject {
             }
         }
     }
-    
+
     private func getMovies(
         genre: Genre,
         page: Int,

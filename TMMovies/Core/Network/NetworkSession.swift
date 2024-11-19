@@ -15,7 +15,7 @@ final class NetworkSession {
         path: String,
         page: Int = 1,
         queryParameters: [URLQueryItem] = []
-    )  -> AnyPublisher<T, Error> {
+    ) -> AnyPublisher<T, Error> {
        guard let request = try? createRequest(
             path: path,
             page: page,
@@ -70,7 +70,7 @@ final class NetworkSession {
         ) else {
             throw CustomErrors.decode("Can't construct url")
         }
-        
+
         // Add query parameters if they exist
         let baseQueryItems = createParameters(page)
         components.queryItems = (components.queryItems ?? []) + baseQueryItems + queryParameters

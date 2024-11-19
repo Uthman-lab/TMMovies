@@ -9,40 +9,44 @@ import SwiftUI
 import Combine
 
 struct SearchView: View {
-    
+
     @StateObject var searchViewModel = SearchViewModel()
     private var debouncer = Debouncer<String>()
 
     var body: some View {
-        PageWithBackground {
-            VStack(spacing: 24) {
-                SearchTextField(
-                    text: $searchViewModel.text,
-                    action: {
-                        debouncer.debounce(
-                            value: searchViewModel.text
-                        ) { debounceValue in
-                            searchViewModel.initializeSearch()
-                        }
-                    })
-                Spacer()
-                switch searchViewModel.searchState {
-                case .success(let movies):
-                    MoviesResultsView(
-                        movies: movies,
-                        searchViewModel: searchViewModel
-                    )
-                case .loading:
-                    LoadingView()
-                case .empty:
-                    EmptyView()
-                case .error(let err):
-                    NoResultsView(error: err)
+        NavigationStack {
+            PageWithBackground {
+                VStack(spacing: 24) {
+                    SearchTextField(
+                        text: $searchViewModel.text,
+                        action: {
+                            debouncer.debounce(
+                                value: searchViewModel.text
+                            ) { _ in
+                                searchViewModel.initializeSearch()
+                            }
+                        })
+                    Spacer()
+                    switch searchViewModel.searchState {
+                    case .success(let movies):
+                        MoviesResultsView(
+                            movies: movies,
+                            searchViewModel: searchViewModel
+                        )
+                    case .loading:
+                        LoadingView()
+                    case .empty:
+                        EmptyView()
+                    case .error(let err):
+                        NoResultsView(error: err)
+                    }
+                    
                 }
-                
+                .padding(.horizontal, 24)
+                .padding(.bottom)
             }
-            .padding(.horizontal, 24)
-            .padding(.bottom)
+            .navigationBarTitleDisplayMode(.inline)
+            .customTitle("Search")
         }
     }
 }

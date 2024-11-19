@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PageWithBackground<Content: View>: View {
-  
+
     let content: () -> Content
     var body: some View {
         ZStack(alignment: .leading) {

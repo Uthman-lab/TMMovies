@@ -9,20 +9,20 @@ import SwiftUI
 
 struct DetailsView: View {
     // MARK: - life cycle methods
-    
+
     init(movie: Movie) {
         self.movie = movie
         _detailsViewModel = StateObject(wrappedValue: DetailsViewModel(movie: movie))
     }
-    
+
     // MARK: - variables
-    
+
     let movie: Movie
     @State var selectedSection: String? = MovieDetailsSection.aboutMovie.rawValue
     @StateObject var detailsViewModel: DetailsViewModel
-    
+
     // MARK: - view
-    
+
     var body: some View {
         PageWithBackground {
             VStack(alignment: .leading, spacing: 24) {
@@ -46,7 +46,9 @@ struct DetailsView: View {
                 Spacer()
             }
         }
-        
+        .useCustomBackButton()
+        .useTrailingNavbarView(.wishIcon)
+
     }
 }
 
@@ -113,7 +115,7 @@ private struct AboutMovie: View {
 
 struct ReviewsView: View {
     let reviews: [MovieReview]
-    
+
     var body: some View {
         ScrollView {
             VStack(spacing: 32) {

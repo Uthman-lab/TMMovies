@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 enum CustomErrors: Error {
     case errorLoadingFile
     case decode(_ message: String)
@@ -16,7 +15,7 @@ enum CustomErrors: Error {
 }
 
 extension CustomErrors: LocalizedError {
-    
+
     var errorDescription: String? {
         switch self {
         case .errorLoadingFile:
