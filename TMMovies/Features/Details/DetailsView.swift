@@ -55,15 +55,15 @@ struct DetailsView: View {
             onTap: {
                 if wishViewModel.wishList.contains(
                     where: {$0.id == movie.id}
-                )  {
+                ) {
                     print("remove")
                     wishViewModel.removeMovie(movie)
                 } else {
-                    
+
                     wishViewModel.addMovieToWish(movie)
                 }
             })
-        
+
     }
 }
 

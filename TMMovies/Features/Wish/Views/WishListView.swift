@@ -9,7 +9,7 @@ import SwiftUI
 
 struct WishListView: View {
     @ObservedObject var wishViewModel = WishViewModel.shared
-    
+
     var body: some View {
         NavigationStack {
             PageWithBackground {

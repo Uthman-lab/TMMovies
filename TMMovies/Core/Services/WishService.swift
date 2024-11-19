@@ -10,7 +10,7 @@ import SwiftData
 import SwiftUI
 
 final class WishService {
-        
+
         let context: ModelContext
 
         init(context: ModelContext) {
@@ -22,9 +22,9 @@ final class WishService {
                   let fetchDescriptor = FetchDescriptor<MovieStorageModel>(
                       predicate: #Predicate { $0.id == movie.id }
                   )
-                  
+
                   let existingMovies = try context.fetch(fetchDescriptor)
-                  
+
                   guard existingMovies.isEmpty else {
                       debugPrint("Movie with ID \(movie.id) already exists.")
                       return

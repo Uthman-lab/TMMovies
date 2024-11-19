@@ -15,18 +15,18 @@ class WishViewModel: ObservableObject {
             await self.setContext()
         }
     }
-    
+
     // MARK: - public variables
     static let shared = WishViewModel()
     @Published var wishList: [Movie] = []
-    
+
     // MARK: - private methods
-    
+
     @MainActor private func setContext() {
         wishService = WishService(context: container.mainContext)
         getMovies()
     }
-    
+
     func addMovieToWish(_ movie: Movie) {
         do {
             try wishService?.addMovie(movie)
@@ -35,7 +35,7 @@ class WishViewModel: ObservableObject {
             debugPrint(error)
         }
     }
-    
+
     func removeMovie(_ movie: Movie) {
         do {
             try wishService?.deleteMovie(movie)
@@ -44,7 +44,7 @@ class WishViewModel: ObservableObject {
             debugPrint(error)
         }
     }
-    
+
     func getMovies() {
         do {
             wishList = try wishService?.getAllMovies() ?? []
