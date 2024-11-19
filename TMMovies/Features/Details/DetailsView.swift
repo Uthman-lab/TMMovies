@@ -49,13 +49,9 @@ struct DetailsView: View {
         }
         .useCustomBackButton()
         .useTrailingNavbarView(
-            wishViewModel.wishList.contains(
-                where: {$0.id == movie.id}
-            ) ? .wishIconActive : .wishIcon,
+            wishViewModel.containsMovie(movie) ? .wishIconActive : .wishIcon,
             onTap: {
-                if wishViewModel.wishList.contains(
-                    where: {$0.id == movie.id}
-                ) {
+                if wishViewModel.containsMovie(movie) {
                     print("remove")
                     wishViewModel.removeMovie(movie)
                 } else {
