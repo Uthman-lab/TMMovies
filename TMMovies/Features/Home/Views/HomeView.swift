@@ -33,7 +33,7 @@ struct HomeView: View {
                             },
                             selectedGenre: $viewModel.selectedGenre
                         )
-                        
+
                     }
                 }
                 .padding(.horizontal, 24)

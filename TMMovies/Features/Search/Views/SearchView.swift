@@ -40,7 +40,7 @@ struct SearchView: View {
                     case .error(let err):
                         NoResultsView(error: err)
                     }
-                    
+
                 }
                 .padding(.horizontal, 24)
                 .padding(.bottom)
