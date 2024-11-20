@@ -287,7 +287,6 @@
 			children = (
 				C0CDF28E2CDF34BA00385769 /* TMMoviesApp.swift */,
 				C0CDF2C12CDF6D4900385769 /* Core */,
-				C0CDF2BA2CDF34D800385769 /* ViewModels */,
 				C0CDF2B82CDF34C900385769 /* Features */,
 				C0CDF2942CDF34BB00385769 /* Preview Content */,
 			);
@@ -339,13 +338,6 @@
 				C0B479662CE2659100323E0C /* MovieCast.swift */,
 			);
 			path = Models;
-			sourceTree = "<group>";
-		};
-		C0CDF2BA2CDF34D800385769 /* ViewModels */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		C0CDF2BB2CDF350900385769 /* Services */ = {

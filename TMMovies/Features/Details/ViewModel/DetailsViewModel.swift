@@ -9,28 +9,28 @@ import Foundation
 import Combine
 
 class DetailsViewModel: ObservableObject {
-    
+
     // MARK: - life cycle methods
-    
+
     init(movie: Movie) {
         self.movie = movie
         getReviews()
         getCastMembers()
     }
-    
+
     // MARK: - private variables
-    
+
     private let apiService = APIService()
     private let movie: Movie
     var cancellables = Set<AnyCancellable>()
-    
+
     // MARK: - public variables
-    
+
     @Published var reviews: [MovieReview] = []
     @Published var castMembers: [CastMember] = []
-    
+
     // MARK: - public methods
-    
+
     func getReviews() {
         apiService.getReviews(movie: movie)
             .sink(receiveCompletion: { _ in}, receiveValue: { [weak self] movieResult in
@@ -40,13 +40,12 @@ class DetailsViewModel: ObservableObject {
             })
             .store(in: &cancellables)
     }
-    
+
     func getCastMembers() {
         apiService.getCasts(movie: movie)
             .sink(receiveCompletion: { completion in
                 print(completion)
             }, receiveValue: { [weak self] castResult in
-                print("data found")
                 DispatchQueue.main.async {
                     self?.castMembers = castResult.cast
                 }
