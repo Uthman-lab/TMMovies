@@ -11,6 +11,7 @@ struct ContentView: View {
     init() {
         UITabBar.appearance().unselectedItemTintColor = .secondaryText
     }
+    @StateObject var settingsViewModel = SettingsViewModel.main
     var body: some View {
             TabView {
                 HomeView()
@@ -37,6 +38,7 @@ struct ContentView: View {
                 }
             }
             .tabViewStyle(.automatic)
+            .preferredColorScheme(settingsViewModel.selectedTheme.scheme)
     }
 }
 

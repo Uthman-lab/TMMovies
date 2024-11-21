@@ -14,7 +14,7 @@ struct SearchTextField: View {
         HStack {
             TextField(text: $text) {
                 Text("Search")
-                    .foregroundStyle(Color(.secondaryIcon))
+                    .foregroundStyle(Color(.primaryText))
             }
             .onChange(of: text) {
                 action()

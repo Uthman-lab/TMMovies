@@ -54,6 +54,7 @@ extension View {
             )
     }
 }
+
 #Preview {
     NavbarTitle(title: "@Telecom")
 }

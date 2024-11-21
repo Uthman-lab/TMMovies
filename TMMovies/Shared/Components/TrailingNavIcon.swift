@@ -13,6 +13,7 @@ struct TrailingNavIcon: View {
     var body: some View {
         Button(action: onTap) {
             Image(icon)
+                .renderingMode(.template)
                 .customFont(.normal, size: 16)
                 .foregroundStyle(.primaryText)
         }

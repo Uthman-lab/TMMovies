@@ -9,6 +9,7 @@ import SwiftUI
 
 struct HomeView: View {
     @State var text = ""
+    @State private var navigateToSettings: Bool = false
     @StateObject var viewModel = HomeViewModel()
     var body: some View {
         NavigationStack {
@@ -40,8 +41,11 @@ struct HomeView: View {
                 .padding(.bottom)
             }
             .useTrailingNavbarView(.settingIcon, onTap: {
-                print("hello theer")
+                navigateToSettings = true
             })
+            .navigationDestination(isPresented: $navigateToSettings) {
+                SettingsView()
+            }
         }
     }
 }

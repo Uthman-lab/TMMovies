@@ -26,13 +26,13 @@ class WishViewModel: ObservableObject {
         wishService = WishService(context: container.mainContext)
         getMovies()
     }
-    
+
     func containsMovie(_ movie: Movie) -> Bool {
         wishList.contains(
             where: {$0.id == movie.id}
         )
     }
-    
+
     func addMovieToWish(_ movie: Movie) {
         do {
             try wishService?.addMovie(movie)

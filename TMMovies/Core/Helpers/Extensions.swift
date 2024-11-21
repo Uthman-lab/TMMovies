@@ -24,8 +24,7 @@ extension View {
         _ font: Poppins = .semiBold,
         size: CGFloat = 18
     ) -> some View {
-        self
-            .font(
+        self.font(
                 .custom(font.rawValue, size: size)
             )
     }
@@ -34,8 +33,7 @@ extension View {
         _ font: Montserrat = .normal,
         size: CGFloat = 18
     ) -> some View {
-        self
-            .font(
+        self.font(
                 .custom(font.rawValue, size: size)
             )
     }
