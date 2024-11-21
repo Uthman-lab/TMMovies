@@ -20,21 +20,17 @@ struct MovieCard: View {
                 VStack(alignment: .leading, spacing: 4) {
                     IconLabelView(
                         iconName: .star,
-                        label: "\(movie.voteCount)",
+                        label: "\(movie.voteAverage)",
                         color: .rating
-                    )
-                    IconLabelView(
-                        iconName: .actionIcon,
-                        label: "Action"
                     )
                     IconLabelView(
                         iconName: .calendarIcon,
                         label: "\(movie.releaseDate)"
                     )
-                    IconLabelView(
-                        iconName: .clockIcon,
-                        label: "139 minutes"
-                    )
+                    Image(systemName:
+                            movie.adult ? "exclamationmark.triangle.fill" : "star.fill")
+                    .customFont(.medium, size: 20)
+                    .foregroundStyle(.primaryText)
                 }
             }
             Spacer()
