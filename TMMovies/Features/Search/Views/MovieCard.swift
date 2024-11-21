@@ -27,8 +27,20 @@ struct MovieCard: View {
                         iconName: .calendarIcon,
                         label: "\(movie.releaseDate)"
                     )
-                    Image(systemName:
-                            movie.adult ? "exclamationmark.triangle.fill" : "star.fill")
+                    HStack {
+                        if movie.adult {
+                                   Label("18+ Adults Only", systemImage: "lock.fill")
+                                       .foregroundColor(.red)
+                               } else {
+                                   Label("Unknown", systemImage: "questionmark.circle.fill")
+                                       .foregroundColor(.primaryText)
+                               }
+                           }
+                           .font(.caption)
+                           .padding(.vertical, 4)
+                           .padding(.horizontal, 8)
+                           .background(Color(.searchField))
+                           .cornerRadius(8)
                     .customFont(.medium, size: 20)
                     .foregroundStyle(.primaryText)
                 }

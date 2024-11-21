@@ -40,7 +40,7 @@ final class APIService {
     ) -> AnyPublisher<MovieResponse, Error> {
         let query = [
             URLQueryItem(name: "query", value: text),
-            URLQueryItem(name: "include_adult", value: "true")
+            URLQueryItem(name: "include_adult", value: "false")
         ]
         return  session.getRequest(
             path: "search/movie",
