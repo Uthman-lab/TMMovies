@@ -10,19 +10,28 @@ import Kingfisher
 
 struct RoundedImage: View {
     let url: URL?
+    var isVideo = false
     var body: some View {
-        KFImage(url)
-            .placeholder({
-                ZStack(alignment: .center) {
-                    Color.black
-                    LoadingView()
-                }
-            })
-            .resizable()
-            .clipShape(.rect(cornerRadius: 16))
+        ZStack {
+            KFImage(url)
+                .placeholder({
+                    ZStack(alignment: .center) {
+                        Color.black
+                        LoadingView()
+                    }
+                })
+                .resizable()
+                .clipShape(.rect(cornerRadius: 16))
+            if isVideo {
+                Image(systemName: "play.circle.fill")
+                    .foregroundStyle(.white)
+                    .customFont(.medium, size: 50)
+            }
+        }
     }
 }
 
 #Preview {
     RoundedImage(url: APIConfiguration.main.parseImageURL(path: "/hhiR6uUbTYYvKoACkdAIQPS5c6f.jpg"))
+        .frame(width: 400, height: 300)
 }

@@ -19,19 +19,19 @@ final class HomeViewModel: ObservableObject {
 
     // MARK: - public variables
     @Published var mainMovies: [Movie] = []
-    @Published var genreMoviesState: [Genre: [Movie]] = [:]
-    @Published var selectedGenre: Genre = .popular
+    @Published var genreMoviesState: [MovieList: [Movie]] = [:]
+    @Published var selectedGenre: MovieList = .popular
 
     // MARK: - private variables
 
-    private var paginationState: [Genre: (page: Int, totalPages: Int)] = [:]
+    private var paginationState: [MovieList: (page: Int, totalPages: Int)] = [:]
     private var trendingMoviesPaginationState: (page: Int, totalPages: Int)?
     private let service = APIService()
     private var cancellables = Set<AnyCancellable>()
 
     // MARK: public methods
 
-    func setGenre(genre: Genre) {
+    func setGenre(genre: MovieList) {
         selectedGenre = genre
     }
 
@@ -93,12 +93,12 @@ final class HomeViewModel: ObservableObject {
     }
 
     private func getAllGenreMovieTypes() {
-        for genre in Genre.allCases {
+        for genre in MovieList.allCases {
             getMoviesForGenre(genre: genre)
         }
     }
 
-    private func getMoviesForGenre(genre: Genre) {
+    private func getMoviesForGenre(genre: MovieList) {
         getMovies(genre: genre, page: 1) { [weak self] response in
             DispatchQueue.main.async {
                 self?.genreMoviesState[genre] = response.movies
@@ -111,7 +111,7 @@ final class HomeViewModel: ObservableObject {
     }
 
     private func getMovies(
-        genre: Genre,
+        genre: MovieList,
         page: Int,
         onSuccess: @escaping ( MovieResponse) -> Void
     ) {

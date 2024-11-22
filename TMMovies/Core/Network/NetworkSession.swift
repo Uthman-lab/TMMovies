@@ -13,12 +13,10 @@ final class NetworkSession {
 
     func getRequest<T: Codable>(
         path: String,
-        page: Int = 1,
         queryParameters: [URLQueryItem] = []
     ) -> AnyPublisher<T, Error> {
        guard let request = try? createRequest(
             path: path,
-            page: page,
             queryParameters: queryParameters
        ) else {
            return Fail(
@@ -26,8 +24,10 @@ final class NetworkSession {
            )
            .eraseToAnyPublisher()
        }
+        print("url is \(request.url)")
         return URLSession.shared.dataTaskPublisher(for: request)
             .map { result in
+                print("result is \(String(data: result.data, encoding: .utf8))")
               return  result.data }
             .decode(type: T.self, decoder: JSONDecoder())
             .mapError { error in
@@ -38,12 +38,10 @@ final class NetworkSession {
 
     private func createRequest(
         path: String,
-        page: Int,
         queryParameters: [URLQueryItem]
     ) throws -> URLRequest {
         guard let urlWithParams = try createURLWithParameters(
             path: path,
-            page: page,
             queryParameters: queryParameters
         ).url else {
             throw CustomErrors.decode("Can't get url from components")
@@ -60,7 +58,6 @@ final class NetworkSession {
 
     private func createURLWithParameters(
         path: String,
-        page: Int,
         queryParameters: [URLQueryItem] = []
     ) throws -> URLComponents {
         let url = try configurations.parseURL(path: "\(path)")
@@ -72,16 +69,15 @@ final class NetworkSession {
         }
 
         // Add query parameters if they exist
-        let baseQueryItems = createParameters(page)
+        let baseQueryItems = createParameters()
         components.queryItems = (components.queryItems ?? []) + baseQueryItems + queryParameters
 
         return components
     }
 
-    private func createParameters(_ page: Int) -> [URLQueryItem] {
+    private func createParameters() -> [URLQueryItem] {
         [
             URLQueryItem(name: "language", value: Locale.current.identifier),
-            URLQueryItem(name: "page", value: "\(page)")
         ]
     }
 }

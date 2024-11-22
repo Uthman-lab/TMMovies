@@ -8,6 +8,20 @@
 import SwiftUI
 import Kingfisher
 
+struct ReviewsView: View {
+    let reviews: [MovieReview]
+
+    var body: some View {
+        ScrollView {
+            VStack(spacing: 32) {
+                ForEach(reviews) { review in
+                    ReviewCard(review: review)
+                }
+            }
+        }
+    }
+}
+
 struct ReviewCard: View {
     let review: MovieReview
     var body: some View {
@@ -41,6 +55,9 @@ struct ReviewCard: View {
 #Preview {
     ZStack {
         Color.black
-        ReviewCard(review: MovieReview.dummyReview)
+        ReviewsView(reviews: [
+            MovieReview.dummyReview,
+            MovieReview.dummyReview
+        ])
     }
 }

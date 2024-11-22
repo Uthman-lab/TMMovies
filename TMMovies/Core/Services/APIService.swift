@@ -18,12 +18,15 @@ final class APIService {
 
     // MARK: - public methods
 
-    func getMovies(genre: Genre, page: Int) -> AnyPublisher<MovieResponse, Error> {
-         session.getRequest(path: moviePath(genre.rawValue), page: page)
+    func getMovies(genre: MovieList, page: Int) -> AnyPublisher<MovieResponse, Error> {
+        return  session.getRequest(
+            path: moviePath(genre.rawValue),
+            queryParameters: paginationQuery(page)
+        )
     }
 
     func getMovies(path: String, page: Int) -> AnyPublisher<MovieResponse, Error> {
-         session.getRequest(path: path, page: page)
+         session.getRequest(path: path, queryParameters: paginationQuery(page))
     }
 
     func getReviews(movie: Movie) -> AnyPublisher<MovieReviewResponse, Error> {
@@ -33,6 +36,10 @@ final class APIService {
     func getCasts(movie: Movie) -> AnyPublisher<CastResponse, Error> {
          session.getRequest(path: moviePath("\(movie.id)/credits"))
     }
+    
+    func getMovieDetails(id: Int) -> AnyPublisher<MovieDetails, Error> {
+        session.getRequest(path: moviePath("\(id)"))
+   }
 
     func searchMovies(
         text: String,
@@ -41,12 +48,15 @@ final class APIService {
         let query = [
             URLQueryItem(name: "query", value: text),
             URLQueryItem(name: "include_adult", value: "false")
-        ]
+        ] + paginationQuery(page)
         return  session.getRequest(
             path: "search/movie",
-            page: page,
             queryParameters: query
         )
+    }
+    
+    func getVideosForMovie(movieId: Int) -> AnyPublisher<VideoResponse, Error> {
+        session.getRequest(path: moviePath("\(movieId)/videos"))
     }
 
     // MARK: - private methods
@@ -54,9 +64,13 @@ final class APIService {
     private func moviePath(_ path: String) -> String {
         "movie/\(path)"
     }
+    
+    private func paginationQuery(_ page: Int) -> [URLQueryItem] {
+        [ URLQueryItem(name: "page", value: "\(page)")]
+    }
 }
 
-enum Genre: String, CaseIterable {
+enum MovieList: String, CaseIterable {
     case popular = "popular"
     case upcoming = "upcoming"
     case topRated = "top_rated"

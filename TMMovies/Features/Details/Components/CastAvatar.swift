@@ -8,6 +8,25 @@
 import SwiftUI
 import Kingfisher
 
+struct CastsView: View {
+    let castMembers: [CastMember]
+    var body: some View {
+        ScrollView {
+            LazyVGrid(columns: [
+                GridItem(.flexible(), alignment: .leading),
+                GridItem(.flexible(), alignment: .trailing)
+            ]) {
+                ForEach(castMembers, id: \.id) { member in
+                    CastAvatar(
+                        url: member.avatarImage,
+                        name: member.name
+                    )
+                }
+            }
+        }
+    }
+}
+
 struct CastAvatar: View {
     let url: URL?
     let name: String
@@ -29,8 +48,4 @@ struct CastAvatar: View {
                 .frame(width: 100)
         }
     }
-}
-
-#Preview {
-    CastAvatar(url: nil, name: "Benedict Cumberbatch")
 }

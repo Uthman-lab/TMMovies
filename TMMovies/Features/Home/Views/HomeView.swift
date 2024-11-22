@@ -24,7 +24,7 @@ struct HomeView: View {
                             onPaginationAction: {
                                 viewModel.getTrendingMovies()
                             })
-                        TabSection(
+                        HomeTabSection(
                             homeViewModel: viewModel
                         )
                         TabBarMovies(
@@ -84,12 +84,12 @@ struct MainMovies: View {
     }
 }
 
-private struct TabSection: View {
+private struct HomeTabSection: View {
     @ObservedObject var homeViewModel: HomeViewModel
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(alignment: .top, spacing: 30) {
-                ForEach(Genre.allCases, id: \.rawValue) { genre in
+                ForEach(MovieList.allCases, id: \.rawValue) { genre in
                     GenreTabItem(
                         genre: genre,
                                 selectedTab: $homeViewModel.selectedGenre,
@@ -105,9 +105,9 @@ private struct TabSection: View {
 }
 
 struct TabBarMovies: View {
-    var moviesState: [Genre: [Movie]]
+    var moviesState: [MovieList: [Movie]]
     var onPaginationAction: () -> Void = {}
-    @Binding var selectedGenre: Genre
+    @Binding var selectedGenre: MovieList
     var body: some View {
         ScrollView {
             LazyVGrid(columns: formGrid(), alignment: .leading, content: {

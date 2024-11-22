@@ -21,7 +21,7 @@ extension Color {
 
 extension View {
     func customFont(
-        _ font: Poppins = .semiBold,
+        _ font: Poppins,
         size: CGFloat = 18
     ) -> some View {
         self.font(
@@ -30,7 +30,7 @@ extension View {
     }
 
     func customFont(
-        _ font: Montserrat = .normal,
+        _ font: Montserrat,
         size: CGFloat = 18
     ) -> some View {
         self.font(

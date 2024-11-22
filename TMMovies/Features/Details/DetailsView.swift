@@ -9,21 +9,21 @@ import SwiftUI
 
 struct DetailsView: View {
     // MARK: - life cycle methods
-
+    
     init(movie: Movie) {
         self.movie = movie
         _detailsViewModel = StateObject(wrappedValue: DetailsViewModel(movie: movie))
     }
-
+    
     // MARK: - variables
-
+    
     let movie: Movie
     @ObservedObject var wishViewModel = WishViewModel.shared
-    @State var selectedSection: String? = MovieDetailsSection.aboutMovie.rawValue
+    @State var selectedSection: String? = movieDetailsSections.first
     @StateObject var detailsViewModel: DetailsViewModel
-
+    
     // MARK: - view
-
+    
     var body: some View {
         PageWithBackground {
             VStack(alignment: .leading, spacing: 24) {
@@ -35,11 +35,12 @@ struct DetailsView: View {
                 VStack(alignment: .leading, spacing: 24) {
                     chipsView(movie: movie)
                     TabSection(
-                        selectedSection: $selectedSection)
-                    MovieDetails(
                         selectedSection: $selectedSection,
-                        viewModel: detailsViewModel,
-                        movie: movie
+                        sections: movieDetailsSections
+                    )
+                    MovieDetailsView(
+                        selectedSection: $selectedSection,
+                        viewModel: detailsViewModel
                     )
                 }
                 .padding(.leading, 34)
@@ -52,30 +53,12 @@ struct DetailsView: View {
             wishViewModel.containsMovie(movie) ? .wishIconActive : .wishIcon,
             onTap: {
                 if wishViewModel.containsMovie(movie) {
-                    print("remove")
                     wishViewModel.removeMovie(movie)
                 } else {
-
                     wishViewModel.addMovieToWish(movie)
                 }
             })
-
-    }
-}
-
-private struct TabSection: View {
-    @Binding var selectedSection: String?
-    var body: some View {
-        HStack(alignment: .top, spacing: 24) {
-            ForEach(MovieDetailsSection.allCases) { section in
-                TextTabItem(
-                    text: section.rawValue,
-                    selectedTab: $selectedSection,
-                    action: {
-                        selectedSection = section.rawValue
-                    })
-            }
-        }
+        
     }
 }
 
@@ -85,7 +68,7 @@ private struct chipsView: View {
         HStack {
             Spacer()
             DetailsViewChip(iconName: .calendarIcon, label: movie.releaseDate )
-            Text("s")
+            Text("|")
                 .foregroundStyle(.clear)
                 .background(
                     Rectangle()
@@ -98,104 +81,25 @@ private struct chipsView: View {
     }
 }
 
-private struct MovieDetails: View {
+private struct MovieDetailsView: View {
     @Binding var selectedSection: String?
     @ObservedObject var viewModel: DetailsViewModel
-    let movie: Movie
     var body: some View {
         switch selectedSection {
-        case MovieDetailsSection.aboutMovie.rawValue:
-            AboutMovie(content: movie.overview)
-        case MovieDetailsSection.reviews.rawValue:
+        case movieDetailsSections[0]:
+            AboutMovie(detailsViewModel: viewModel)
+        case movieDetailsSections[1]:
             ReviewsView(reviews: viewModel.reviews)
-        case MovieDetailsSection.cast.rawValue:
+        case movieDetailsSections[2]:
             CastsView(castMembers: viewModel.castMembers)
         default:
             EmptyView()
         }
     }
 }
-private struct AboutMovie: View {
-    let content: String
-    var body: some View {
-        Text(content)
-            .foregroundStyle(.primaryText)
-            .customFont(.regular, size: 12)
-    }
-}
 
-struct ReviewsView: View {
-    let reviews: [MovieReview]
-
-    var body: some View {
-        ScrollView {
-            VStack(spacing: 32) {
-                ForEach(reviews) { review in
-                    ReviewCard(review: review)
-                }
-            }
-        }
-    }
-}
-
-struct CastsView: View {
-    let castMembers: [CastMember]
-    var body: some View {
-        ScrollView {
-            LazyVGrid(columns: [
-                GridItem(.flexible(), alignment: .leading),
-                GridItem(.flexible(), alignment: .trailing)
-            ]) {
-                ForEach(castMembers, id: \.id) { member in
-                    CastAvatar(
-                        url: member.avatarImage,
-                        name: member.name
-                    )
-                }
-            }
-        }
-    }
-}
-
-enum MovieDetailsSection: String, CaseIterable, Identifiable {
-    case aboutMovie = "About Movie"
-    case reviews = "Reviews"
-    case cast = "Cast"
-    var id: UUID {
-        UUID()
-    }
-}
+private let movieDetailsSections = ["About Movie", "Reviews", "Cast"]
 
 #Preview {
     DetailsView(movie: Movie.dummyMovie)
-}
-
-struct TextTabItem: View {
-    let text: String
-    @Binding var selectedTab: String?
-    var action: () -> Void
-
-    var body: some View {
-        Button(action: {
-            withAnimation {
-                action()
-            }
-        }) {
-            VStack(spacing: 4) {
-                Text(text)
-                    .customFont(.medium, size: 14)
-                    .foregroundStyle(Color(.primaryText))
-                if selectedTab == text {
-                    Text(text)
-                        .customFont(.medium, size: 14)
-                        .foregroundStyle(.clear)
-                        .frame(height: 4)
-                        .background(
-                            Rectangle()
-                                .foregroundStyle(Color(.secondaryIcon))
-                        )
-                }
-            }
-        }
-    }
 }

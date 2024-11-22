@@ -1,15 +1,15 @@
 //
-//  TextTabItem.swift
+//  TextTabItems.swift
 //  TMMovies
 //
-//  Created by AMALITECH-PC-593 on 11/9/24.
+//  Created by AMALITECH-PC-593 on 11/22/24.
 //
 
 import SwiftUI
 
-struct GenreTabItem: View {
-    let genre: MovieList
-    @Binding var selectedTab: MovieList
+struct TextTabItem: View {
+    let text: String
+    @Binding var selectedTab: String?
     var action: () -> Void
 
     var body: some View {
@@ -19,11 +19,11 @@ struct GenreTabItem: View {
             }
         }) {
             VStack(spacing: 4) {
-                Text(genre.text)
+                Text(text)
                     .customFont(.medium, size: 14)
                     .foregroundStyle(Color(.primaryText))
-                if selectedTab == genre {
-                    Text(genre.text)
+                if selectedTab == text {
+                    Text(text)
                         .customFont(.medium, size: 14)
                         .foregroundStyle(.clear)
                         .frame(height: 4)
@@ -37,10 +37,7 @@ struct GenreTabItem: View {
     }
 }
 
+
 #Preview {
-    GenreTabItem(
-        genre: .nowPlaying,
-        selectedTab: .constant(.nowPlaying),
-        action: {}
-    )
+    TextTabItem(text: "Hello", selectedTab: .constant("Hello"), action: {})
 }
