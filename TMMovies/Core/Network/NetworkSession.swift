@@ -13,7 +13,8 @@ final class NetworkSession {
 
     func getRequest<T: Codable>(
         path: String,
-        queryParameters: [URLQueryItem] = []
+        queryParameters: [URLQueryItem] = [],
+        addParameters: Bool = true
     ) -> AnyPublisher<T, Error> {
        guard let request = try? createRequest(
             path: path,
@@ -24,10 +25,8 @@ final class NetworkSession {
            )
            .eraseToAnyPublisher()
        }
-        print("url is \(request.url)")
         return URLSession.shared.dataTaskPublisher(for: request)
             .map { result in
-                print("result is \(String(data: result.data, encoding: .utf8))")
               return  result.data }
             .decode(type: T.self, decoder: JSONDecoder())
             .mapError { error in
@@ -69,15 +68,9 @@ final class NetworkSession {
         }
 
         // Add query parameters if they exist
-        let baseQueryItems = createParameters()
-        components.queryItems = (components.queryItems ?? []) + baseQueryItems + queryParameters
+        components.queryItems = (components.queryItems ?? []) + queryParameters
 
         return components
     }
 
-    private func createParameters() -> [URLQueryItem] {
-        [
-            URLQueryItem(name: "language", value: Locale.current.identifier),
-        ]
-    }
 }

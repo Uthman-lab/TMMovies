@@ -13,16 +13,12 @@ struct VideosView: View {
     @Binding var videos: [MovieVideo]
     
     var body: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack(alignment: .top, spacing: 12) {
-                ForEach(videos) { video in
-                    VideoCard(video: video, action: {
-                        if let url = video.youtubeURL {
-                            mediaURL = url
-                        }
-                    })
+        MediaScrollView(items: videos) { video in
+            VideoCard(video: video, action: {
+                if let url = video.youtubeURL {
+                    mediaURL = url
                 }
-            }
+            })
         }
         .onChange(of: mediaURL) {
             if mediaURL != nil {
@@ -32,8 +28,6 @@ struct VideosView: View {
         .sheet(isPresented: $showMedia) {
             if let url = mediaURL {
                 WebView(url: url)
-                    .frame(height: 300)
-                    .cornerRadius(8)
             }
         }
     }

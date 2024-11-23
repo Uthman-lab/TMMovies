@@ -39,6 +39,8 @@
 		C0CD320A2CF07A0F00F1DDF0 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CD32092CF07A0F00F1DDF0 /* WebView.swift */; };
 		C0CD320C2CF07BE000F1DDF0 /* TextTabItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CD320B2CF07BE000F1DDF0 /* TextTabItems.swift */; };
 		C0CD320E2CF07F3700F1DDF0 /* TabSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CD320D2CF07F3700F1DDF0 /* TabSection.swift */; };
+		C0CD32102CF0862500F1DDF0 /* ImagesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CD320F2CF0862500F1DDF0 /* ImagesModel.swift */; };
+		C0CD32122CF2228B00F1DDF0 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0CD32112CF2228B00F1DDF0 /* Launch Screen.storyboard */; };
 		C0CDF28F2CDF34BA00385769 /* TMMoviesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CDF28E2CDF34BA00385769 /* TMMoviesApp.swift */; };
 		C0CDF2912CDF34BA00385769 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CDF2902CDF34BA00385769 /* ContentView.swift */; };
 		C0CDF2932CDF34BB00385769 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0CDF2922CDF34BB00385769 /* Assets.xcassets */; };
@@ -154,6 +156,8 @@
 		C0CD32092CF07A0F00F1DDF0 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		C0CD320B2CF07BE000F1DDF0 /* TextTabItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextTabItems.swift; sourceTree = "<group>"; };
 		C0CD320D2CF07F3700F1DDF0 /* TabSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabSection.swift; sourceTree = "<group>"; };
+		C0CD320F2CF0862500F1DDF0 /* ImagesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesModel.swift; sourceTree = "<group>"; };
+		C0CD32112CF2228B00F1DDF0 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		C0CDF28B2CDF34BA00385769 /* TMMovies.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TMMovies.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0CDF28E2CDF34BA00385769 /* TMMoviesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMMoviesApp.swift; sourceTree = "<group>"; };
 		C0CDF2902CDF34BA00385769 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -444,6 +448,7 @@
 			children = (
 				C0CDF2C22CDF6D9800385769 /* CustomErrors.swift */,
 				C0374AA42CEF954100C272D8 /* VideoModel.swift */,
+				C0CD320F2CF0862500F1DDF0 /* ImagesModel.swift */,
 				C0B4795D2CE24A3A00323E0C /* ReviewModel.swift */,
 				C0CDF2C62CDF7BA200385769 /* Movie.swift */,
 				C0B479662CE2659100323E0C /* MovieCast.swift */,
@@ -475,6 +480,7 @@
 			isa = PBXGroup;
 			children = (
 				C0CDF2922CDF34BB00385769 /* Assets.xcassets */,
+				C0CD32112CF2228B00F1DDF0 /* Launch Screen.storyboard */,
 				C0CDF31D2CDFC55200385769 /* Poppins */,
 				C0CDF2C82CDF7EF800385769 /* Info.plist */,
 				C0CDF2F32CDFC52900385769 /* Montserrat */,
@@ -745,6 +751,7 @@
 				C0CDF3012CDFC52900385769 /* Montserrat-Regular.ttf in Resources */,
 				C0CDF2FD2CDFC52900385769 /* Montserrat-Light.ttf in Resources */,
 				C0CDF3252CDFC55200385769 /* Poppins-ExtraLight.ttf in Resources */,
+				C0CD32122CF2228B00F1DDF0 /* Launch Screen.storyboard in Resources */,
 				C0CDF32D2CDFC55200385769 /* Poppins-SemiBold.ttf in Resources */,
 				C0CDF2F72CDFC52900385769 /* Montserrat-BoldItalic.ttf in Resources */,
 				C0CDF3262CDFC55200385769 /* Poppins-ExtraLightItalic.ttf in Resources */,
@@ -825,6 +832,7 @@
 				C04DC5E42CECCEE800440639 /* WishService.swift in Sources */,
 				C0CD320A2CF07A0F00F1DDF0 /* WebView.swift in Sources */,
 				C0CDF33E2CE01B9C00385769 /* HeroView.swift in Sources */,
+				C0CD32102CF0862500F1DDF0 /* ImagesModel.swift in Sources */,
 				C0CDF2C32CDF6D9800385769 /* CustomErrors.swift in Sources */,
 				C0CD320E2CF07F3700F1DDF0 /* TabSection.swift in Sources */,
 				C0CDF2D42CDFB00800385769 /* ImageNumber.swift in Sources */,
@@ -1027,6 +1035,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1057,6 +1066,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (

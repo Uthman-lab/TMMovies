@@ -13,39 +13,40 @@ struct ContentView: View {
     }
     @StateObject var settingsViewModel = SettingsViewModel.main
     var body: some View {
-            TabView {
-                HomeView()
-                    .tabItem {
+        TabView {
+            HomeView()
+                .tabItem {
+                    TabBarItem(
+                        iconName: .homeIcon,
+                        label: "Home"
+                    )
+                }
+            SearchView()
+                .tabItem {
+                    VStack {
                         TabBarItem(
-                            iconName: .homeIcon,
-                            label: "Home"
+                            iconName: .searchIcon2, 
+                            label: "Search"
                         )
                     }
-                SearchView()
-                    .tabItem {
-                        VStack {
-                            TabBarItem(
-                                iconName: .searchIcon2, label: "Search"
-                            )
-                        }
-                    }
-               WishListView()
+                }
+            WishListView()
                 .tabItem {
                     TabBarItem(
                         iconName: .watchListIcon,
                         label: "Watch List"
                     )
                 }
-            }
-            .tabViewStyle(.automatic)
-            .preferredColorScheme(settingsViewModel.selectedTheme.scheme)
+        }
+        .tabViewStyle(.automatic)
+        .preferredColorScheme(settingsViewModel.selectedTheme.scheme)
     }
 }
 
 struct TabBarItem: View {
     let iconName: ImageResource
     let label: String
-
+    
     var body: some View {
         VStack {
             Image(iconName)

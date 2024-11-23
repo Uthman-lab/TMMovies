@@ -18,6 +18,7 @@ class DetailsViewModel: ObservableObject {
         getReviews()
         getCastMembers()
         getVideos()
+        getImages()
     }
 
     // MARK: - private variables
@@ -32,7 +33,9 @@ class DetailsViewModel: ObservableObject {
     @Published var castMembers: [CastMember] = []
     @Published var movieDetails: MovieDetails?
     @Published var videos: [MovieVideo] = []
-
+    @Published var posters: [Poster] = []
+    @Published var backdrops: [Backdrop] = []
+    
     // MARK: - public methods
     
     func getMovieDetails() {
@@ -76,6 +79,20 @@ class DetailsViewModel: ObservableObject {
                 DispatchQueue.main.async {
                     debugPrint("videos are \(videoResults.results)")
                     self?.videos = videoResults.results
+                }
+            })
+            .store(in: &cancellables)
+    }
+    
+    func getImages() {
+        apiService.getImagesForMovie(movieId: movie.id)
+            .sink(receiveCompletion: { completion in
+                debugPrint("images completion: \(completion)")
+            }, receiveValue: { [weak self] imagesResults in
+                DispatchQueue.main.async {
+                    debugPrint("Images are \(imagesResults)")
+                    self?.backdrops = imagesResults.backdrops
+                    self?.posters = imagesResults.posters
                 }
             })
             .store(in: &cancellables)

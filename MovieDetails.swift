@@ -124,6 +124,9 @@ extension MovieDetails {
         URL(string: homepage)
     }
     
+    var language: String {
+        Locale.current.localizedString(forLanguageCode: originalLanguage) ?? ""
+    }
     static var dummyMovie: MovieDetails {
         return MovieDetails(
             adult: false,
