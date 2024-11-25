@@ -13,7 +13,7 @@ struct SearchTextField: View {
     var body: some View {
         HStack {
             TextField(text: $text) {
-                Text("Search")
+                Text("Search".lowercased())
                     .foregroundStyle(Color(.primaryText))
             }
             .onChange(of: text) {
@@ -31,5 +31,5 @@ struct SearchTextField: View {
 }
 
 #Preview {
-    SearchTextField(text: .constant("sdfadfae"))
+    SearchTextField(text: .constant(""))
 }
