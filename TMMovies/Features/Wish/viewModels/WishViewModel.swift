@@ -8,7 +8,7 @@
 import Foundation
 import SwiftData
 
-class WishViewModel: ObservableObject {
+final class WishViewModel: ObservableObject {
     var wishService: WishService?
     private init() {
         Task {

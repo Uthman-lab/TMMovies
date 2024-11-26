@@ -9,21 +9,42 @@ import Foundation
 import SwiftUI
 
 final class SettingsViewModel: ObservableObject {
+    
+    // MARK: - life cycle methods
+    
     private init() {
         getTheme()
+        getLanguage()
     }
+    
+    // MARK: - private variables
+    
+    let defaults = AppDefaults.shared
+        
+    // MARK: - public variables
+    
     static let main = SettingsViewModel()
     @Published var selectedTheme: Theme = .system
-    let defaults = UserDefaults.standard
-    let themeKey = "theme"
-
+    @Published var selectedLanguage: DeviceLanguage? = DeviceLanguage(
+        name: "English",
+        code: "en"
+    ) {
+        didSet {
+            if let value = selectedLanguage {
+                setLanguage(language: value)
+            }
+        }
+    }
+    
+    // MARK: - public methods
+    
     func setTheme(theme: Theme) {
-        defaults.setValue(theme.rawValue, forKey: themeKey)
+        defaults.store(for: .theme, value: theme.rawValue)
         getTheme()
     }
-
+    
     func getTheme() {
-        let themeId = defaults.object(forKey: themeKey) as? Int
+        let themeId = defaults.getValue(for: .theme) as? Int
         switch themeId {
         case 0:
             selectedTheme = Theme.light
@@ -35,17 +56,48 @@ final class SettingsViewModel: ObservableObject {
             selectedTheme = Theme.dark
         }
     }
+    
+    func setLanguage(language: DeviceLanguage) {
+        defaults.store(
+            for: .language,
+            value: [language.name, language.code]
+        )
+    }
+    
+    func getLanguage() {
+        guard let langStore = defaults.getValue(
+            for: .language
+        ) as? [String] else {
+            return
+        }
+        selectedLanguage = DeviceLanguage(
+            name: langStore[0], code: langStore[1])
+    }
+    
+    func loadLanguages() -> [DeviceLanguage] {
+        Set(Locale.availableIdentifiers.compactMap { identifier in
+            let locale = Locale(identifier: identifier)
+            guard let code = locale.language.languageCode?.identifier else { return nil }
+            return DeviceLanguage(
+                name: locale.localizedString(
+                    forLanguageCode: locale.identifier
+                ) ?? "",
+                code: code
+            )
+        }).sorted { $0.name < $1.name }
+    }
+    
 }
 
 enum Theme: Int, CaseIterable, Identifiable {
     var id: UUID {
         UUID()
     }
-
+    
     case light
     case dark
     case system
-
+    
     var label: String {
         switch self {
         case .light:
@@ -56,7 +108,7 @@ enum Theme: Int, CaseIterable, Identifiable {
             "System"
         }
     }
-
+    
     var iconName: String {
         switch self {
         case .light:
@@ -67,7 +119,7 @@ enum Theme: Int, CaseIterable, Identifiable {
             "gearshape"
         }
     }
-
+    
     var scheme: ColorScheme? {
         switch self {
         case .light:
@@ -75,7 +127,7 @@ enum Theme: Int, CaseIterable, Identifiable {
         case .dark:
                 .dark
         case .system:
-                nil
+            nil
         }
     }
 }

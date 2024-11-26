@@ -12,13 +12,13 @@ final class SearchViewModel: ObservableObject {
 
     // MARK: - public variables
 
-    @Published var searchState: SearchState = .empty
+    @Published private(set) var searchState: SearchState = .empty
     @Published var text = ""
-    @Published var paginationError: String?
-    @Published var isLastPage = false
+    @Published private(set) var paginationError: String?
+    @Published private(set) var isLastPage = false
 
     // MARK: - private variables
-
+    
     private let movieAPI = APIService()
     private var movies: [Movie] = []
     private var cancellables = Set<AnyCancellable>()

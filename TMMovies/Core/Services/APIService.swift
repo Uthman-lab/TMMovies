@@ -15,11 +15,14 @@ final class APIService {
     let configurations = APIConfiguration.main
     let session = NetworkSession()
     var cancellables = Set<AnyCancellable>()
+    let appDefaults = AppDefaults.shared
     
     // MARK: - private variables
     
     private var languageQuery: URLQueryItem {
-        URLQueryItem(name: "language", value: Locale.current.identifier)
+        let langStore = appDefaults.getValue(for: .language) as? [String]
+        let code = langStore?[1]
+        return URLQueryItem(name: "language", value: code ?? "en")
     }
 
     // MARK: - public methods

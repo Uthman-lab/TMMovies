@@ -36,7 +36,6 @@ final class WishService {
 
     // Delete a movie from SwiftData
     func deleteMovie(_ movie: Movie) throws {
-        debugPrint("delete \(movie.title)")
         let id = movie.id
         try context.delete(
             model: MovieStorageModel.self,

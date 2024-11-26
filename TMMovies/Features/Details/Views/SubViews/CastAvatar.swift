@@ -18,9 +18,9 @@ struct CastsView: View {
                 GridItem(.flexible(), alignment: .leading)
             ]) {
                 ForEach(castMembers, id: \.id) { member in
-                            CastAvatar(
-                                castMember: member
-                        )
+                    CastAvatar(
+                        castMember: member
+                    )
                 }
             }
         }

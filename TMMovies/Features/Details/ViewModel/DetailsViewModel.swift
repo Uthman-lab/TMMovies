@@ -8,10 +8,10 @@
 import Foundation
 import Combine
 
-class DetailsViewModel: ObservableObject {
-
+final class DetailsViewModel: ObservableObject {
+    
     // MARK: - life cycle methods
-
+    
     init(movie: Movie) {
         self.movie = movie
         getMovieDetails()
@@ -20,15 +20,15 @@ class DetailsViewModel: ObservableObject {
         getVideos()
         getImages()
     }
-
+    
     // MARK: - private variables
-
+    
     private let apiService = APIService()
     private let movie: Movie
     var cancellables = Set<AnyCancellable>()
-
+    
     // MARK: - public variables
-
+    
     @Published var reviews: [MovieReview] = []
     @Published var castMembers: [CastMember] = []
     @Published var movieDetails: MovieDetails?
@@ -40,25 +40,27 @@ class DetailsViewModel: ObservableObject {
     
     func getMovieDetails() {
         apiService.getMovieDetails(id: movie.id)
-            .sink(receiveCompletion: { s in print("error is \(s)")}, receiveValue: { [weak self] movieResult in
-                DispatchQueue.main.async {
-                    print("movie is \(movieResult)")
-                    self?.movieDetails = movieResult
-                }
-            })
+            .sink(
+                receiveCompletion: { s in debugPrint("error is \(s)")},
+                receiveValue: { [weak self] movieResult in
+                    DispatchQueue.main.async {
+                        self?.movieDetails = movieResult
+                    }
+                })
             .store(in: &cancellables)
     }
-
+    
     func getReviews() {
         apiService.getReviews(movie: movie)
-            .sink(receiveCompletion: { _ in}, receiveValue: { [weak self] reviewResults in
+            .sink(receiveCompletion: { completion in debugPrint(completion)},
+                  receiveValue: { [weak self] reviewResults in
                 DispatchQueue.main.async {
                     self?.reviews = reviewResults.results
                 }
             })
             .store(in: &cancellables)
     }
-
+    
     func getCastMembers() {
         apiService.getCasts(movie: movie)
             .sink(receiveCompletion: { completion in
@@ -77,7 +79,6 @@ class DetailsViewModel: ObservableObject {
                 print(completion)
             }, receiveValue: { [weak self] videoResults in
                 DispatchQueue.main.async {
-                    debugPrint("videos are \(videoResults.results)")
                     self?.videos = videoResults.results
                 }
             })
@@ -90,7 +91,6 @@ class DetailsViewModel: ObservableObject {
                 debugPrint("images completion: \(completion)")
             }, receiveValue: { [weak self] imagesResults in
                 DispatchQueue.main.async {
-                    debugPrint("Images are \(imagesResults)")
                     self?.backdrops = imagesResults.backdrops
                     self?.posters = imagesResults.posters
                 }

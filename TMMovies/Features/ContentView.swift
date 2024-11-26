@@ -23,12 +23,10 @@ struct ContentView: View {
                 }
             SearchView()
                 .tabItem {
-                    VStack {
-                        TabBarItem(
-                            iconName: .searchIcon2, 
-                            label: "Search"
-                        )
-                    }
+                    TabBarItem(
+                        iconName: .searchIcon2,
+                        label: "Search"
+                    )
                 }
             WishListView()
                 .tabItem {

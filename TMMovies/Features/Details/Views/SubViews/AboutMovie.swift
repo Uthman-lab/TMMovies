@@ -58,11 +58,6 @@ struct MovieSubInfoView: View {
     }
 }
 
-struct MovieItem: Hashable {
-    let title: String
-    let value: String
-}
-
 struct ShowMedia: View {
     @Binding var selectedMedia: String?
     @ObservedObject var detailsViewModel: DetailsViewModel
@@ -127,6 +122,11 @@ struct MediaScrollView<Item: Identifiable, Content: View>: View {
             .padding(.bottom, 24)
         }
     }
+}
+
+struct MovieItem: Hashable {
+    let title: String
+    let value: String
 }
 
 private let mediaSections = ["Videos", "Posters", "Backdrops"]
