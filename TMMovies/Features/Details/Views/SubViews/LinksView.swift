@@ -20,10 +20,12 @@ struct LinksView: View {
                         source: .system(name: "globe"),
                         urlToOpen: movieDetails?.homePageURL
                     )
+                    .accessibilityLabel(Text("Go to movie site Link"))
                     LinkIcon(
                         source: .asset(name: .imdbIcon),
                         urlToOpen: movieDetails?.imdbURL
                     )
+                    .accessibilityLabel(Text("Go to IMDB site Link"))
                 }
             }
             .padding()
@@ -57,6 +59,7 @@ struct LinkIcon: View {
         }
         .clipShape(.rect(cornerRadius: 8))
         .frame(minHeight: 40, maxHeight: 40)
+        .accessibilityElement()
         .sheet(isPresented: $showSafariView) {
             if let url = urlToOpen {
                 WebView(url: url)

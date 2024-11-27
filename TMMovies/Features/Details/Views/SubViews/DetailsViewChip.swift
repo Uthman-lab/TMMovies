@@ -17,6 +17,7 @@ struct DetailsViewChip: View {
         }
         .foregroundStyle(Color(.secondaryText))
         .customFont(.medium, size: 12)
+        .accessibilityElement(children: .ignore)
     }
 }
 

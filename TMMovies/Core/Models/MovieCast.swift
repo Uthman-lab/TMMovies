@@ -12,7 +12,7 @@ struct CastResponse: Codable {
     let cast: [CastMember]
 }
 
-struct CastMember: Codable, Identifiable {
+struct CastMember: Codable, Identifiable, Hashable {
     let adult: Bool
        let gender: Int?
        let id: Int

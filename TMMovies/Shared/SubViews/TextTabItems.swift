@@ -34,6 +34,7 @@ struct TextTabItem: View {
                 }
             }
         }
+        .accessibilityElement(children: .combine)
     }
 }
 

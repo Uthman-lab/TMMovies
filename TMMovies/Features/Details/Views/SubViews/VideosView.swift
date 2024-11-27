@@ -19,6 +19,7 @@ struct VideosView: View {
                     mediaURL = url
                 }
             })
+            .accessibilityLabel(Text("Play Video: \(video.name)"))
         }
         .onChange(of: mediaURL) {
             if mediaURL != nil {
@@ -51,6 +52,7 @@ private struct VideoCard: View {
                 .lineLimit(3)
         }
         .frame(width: 150)
+        .accessibilityElement()
     }
 }
 

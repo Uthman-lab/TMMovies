@@ -17,12 +17,14 @@ struct TrailingNavIcon: View {
                 .customFont(.normal, size: 16)
                 .foregroundStyle(.primaryText)
         }
+        .accessibilityElement(children: .combine)
     }
 }
 
 struct TrailingNavIconModifier: ViewModifier {
     let icon: ImageResource
     let placement: ToolbarItemPlacement
+    var accessibilityLabel: String
     let onTap: () -> Void
     func body(content: Content) -> some View {
         content
@@ -33,6 +35,7 @@ struct TrailingNavIconModifier: ViewModifier {
                         icon: icon,
                         onTap: onTap
                     )
+                    .accessibilityLabel(Text(accessibilityLabel))
                 }
             }
     }
@@ -41,14 +44,15 @@ struct TrailingNavIconModifier: ViewModifier {
 extension View {
     func useTrailingNavbarView(
         _ icon: ImageResource,
+        accessibilityLabel: String = "",
         onTap: @escaping () -> Void = {},
         placement: ToolbarItemPlacement = .topBarTrailing
     ) -> some View {
-        self
-            .modifier(
+        self.modifier(
                 TrailingNavIconModifier(
                     icon: icon,
-                    placement: placement,
+                    placement: placement, 
+                    accessibilityLabel: accessibilityLabel,
                     onTap: onTap
                 )
             )

@@ -12,13 +12,14 @@ struct TabSection: View {
     let sections: [String]
     var body: some View {
         HStack(alignment: .top, spacing: 24) {
-            ForEach(sections, id: \.self) { section in
+            ForEach(sections.indices, id: \.self) { index in
                 TextTabItem(
-                    text: section,
+                    text: sections[index],
                     selectedTab: $selectedSection,
                     action: {
-                        selectedSection = section
+                        selectedSection = sections[index]
                     })
+                .accessibilityLabel(Text("\(sections[index]) Tab"))
             }
         }
     }

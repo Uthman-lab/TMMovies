@@ -70,15 +70,24 @@ struct ShowMedia: View {
                 MediaScrollView(
                     items: detailsViewModel.posters,
                     content: { poster in
-                        MovieImageView(url: poster.imageURL)
+                        let items = detailsViewModel.backdrops
+                       return MovieImageView(url: poster.imageURL)
+                            .accessibilityLabel(
+                                Text("Posters \(items.firstIndex(where: {$0.id == poster.id}) ?? 1)")
+                            )
                         .frame(width: 70, height: 100) }
                 )
             case mediaSections[2]:
                 MediaScrollView(
                     items: detailsViewModel.backdrops,
-                    content: { poster in
-                        MovieImageView(url: poster.imageURL)
-                        .frame(width: 150, height: 100) }
+                    content: { backdrop in
+                        let items = detailsViewModel.backdrops
+                       return MovieImageView(url: backdrop.imageURL)
+                        .frame(width: 150, height: 100)
+                        .accessibilityLabel(
+                            Text("Backdrop \(items.firstIndex(where: {$0.id == backdrop.id}) ?? 1)")
+                        )
+                    }
                 )
             default:
                 EmptyView()
@@ -100,6 +109,7 @@ struct MovieImageView: View {
             KFImage(url)
                 .useCustomBackButton()
         }
+        .accessibilityElement()
     }
 }
 

@@ -34,13 +34,15 @@ struct HomeView: View {
                             },
                             selectedGenre: $viewModel.selectedGenre
                         )
-
                     }
                 }
                 .padding(.horizontal, 24)
                 .padding(.bottom)
             }
-            .useTrailingNavbarView(.settingIcon, onTap: {
+            .useTrailingNavbarView(
+                .settingIcon,
+                accessibilityLabel: "Settings Icon",
+                onTap: {
                 navigateToSettings = true
             })
             .navigationDestination(isPresented: $navigateToSettings) {
@@ -62,15 +64,20 @@ struct MainMovies: View {
                         ImageWithNum(
                             imageData: (URL(string: ""), index)
                         )
+                        .accessibilityLabel(Text("movie placeholder card \(index + 1) of 5"))
                     }
                 } else {
-                    ForEach(Array(movies.enumerated()), id: \.offset) { index, movie in
+                    ForEach(Array(
+                        movies.enumerated()),
+                            id: \.offset
+                    ) { index, movie in
                         NavigationLink(destination: {
                             DetailsView(movie: movie)
                         }, label: {
                             ImageWithNum(
                                 imageData: (movie.posterImage, index + 1)
                             )
+                            .accessibilityLabel(Text("\(movie.title) \(index + 1) of \(movies.count)"))
                         })
                     }
                     LoadingView()
@@ -96,8 +103,8 @@ private struct HomeTabSection: View {
                                 action: {
                         homeViewModel.setGenre(genre: genre)
                     }
-
                     )
+                    .accessibilityLabel(Text("\(genre.text) tab"))
                 }
             }
         }
@@ -119,12 +126,15 @@ struct TabBarMovies: View {
                         loadingState()
                     } else {
                         ForEach(Array(movies.enumerated()), id: \.offset) {
-                            (_, movie) in
+                            (index, movie) in
                             NavigationLink(destination: {
                                 DetailsView(movie: movie)
                             }, label: {
                                 RoundedImage(url: movie.posterImage)
                                     .frame(height: 145)
+                                    .accessibilityLabel(
+                                        Text("\(movie.title) \(index + 1) of \(movies.count)")
+                                    )
                             })
                         }
                         LoadingView()

@@ -47,6 +47,7 @@ struct HeroView: View {
                 )
         }
         .padding(.bottom, 56)
+        .accessibilityElement(children: .ignore)
     }
 }
 

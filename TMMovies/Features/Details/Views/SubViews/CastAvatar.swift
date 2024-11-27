@@ -17,9 +17,11 @@ struct CastsView: View {
                 GridItem(.flexible(), alignment: .leading),
                 GridItem(.flexible(), alignment: .leading)
             ]) {
-                ForEach(castMembers, id: \.id) { member in
+                ForEach(castMembers.indices, id: \.self) { index in
                     CastAvatar(
-                        castMember: member
+                        castMember: castMembers[index],
+                        index: index,
+                        total: castMembers.count
                     )
                 }
             }
@@ -29,7 +31,10 @@ struct CastsView: View {
 
 struct CastAvatar: View {
     let castMember: CastMember
+    let index: Int
+    let total: Int
     @State var showDetails = false
+
     var body: some View {
         Button(action: {
             withAnimation {
@@ -43,28 +48,24 @@ struct CastAvatar: View {
                     }
                     .resizable()
                     .scaledToFill()
-                    .clipShape(.circle)
+                    .clipShape(Circle())
                     .frame(width: 100, height: 100)
+                    .accessibilityLabel(Text("Image of \(castMember.name) \(index + 1) of \(total)"))
+
                 VStack(alignment: .leading) {
                     CastTile(label: "Name", value: castMember.name)
+                    
                     if showDetails {
-                        CastTile(
-                            label: "Character",
-                            value: castMember.character
-                        )
+                        CastTile(label: "Character", value: castMember.character)
                         CastTile(label: "Known For", value: castMember.knownForDepartment)
-                        CastTile(
-                            label: "Character",
-                            value: castMember.gender.gendar
-                        )
-                        CastTile(
-                            label: "Adult Actor",
-                            value: castMember.adult ? "Yes" : "No"
-                        )
+                        CastTile(label: "Gender", value: castMember.gender.gendar)
+                        CastTile(label: "Adult Actor", value: castMember.adult ? "Yes" : "No")
                     }
                 }
+                
             }
         }
+        .accessibilityHint("Double-tap to \(showDetails ? "hide" : "view") details")
     }
 }
 

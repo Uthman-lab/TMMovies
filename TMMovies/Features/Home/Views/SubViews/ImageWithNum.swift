@@ -17,6 +17,7 @@ struct ImageWithNum: View {
                 .offset(.init(width: -60, height: 85))
         }
         .padding(.bottom, 20)
+        .accessibilityElement(children: .combine)
     }
 }
 

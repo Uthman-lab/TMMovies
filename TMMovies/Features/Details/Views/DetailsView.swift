@@ -32,6 +32,7 @@ struct DetailsView: View {
                     image: movie.coverImage,
                     movieTitle: movie.title
                 )
+                .accessibilityLabel("\(movie.title) backdrop and poster images ")
                 VStack(alignment: .leading, spacing: 24) {
                     chipsView(movie: movie)
                     TabSection(
@@ -51,6 +52,7 @@ struct DetailsView: View {
         .useCustomBackButton()
         .useTrailingNavbarView(
             wishViewModel.containsMovie(movie) ? .wishIconActive : .wishIcon,
+            accessibilityLabel: accessibilityText(movie: movie),
             onTap: {
                 if wishViewModel.containsMovie(movie) {
                     wishViewModel.removeMovie(movie)
@@ -60,6 +62,13 @@ struct DetailsView: View {
             })
         
     }
+    
+    private func accessibilityText(movie: Movie) -> String {
+        if wishViewModel.containsMovie(movie) {
+            return "Remove from wishlist toggle"
+        }
+        return "Add to wishlist toggle"
+    }
 }
 
 private struct chipsView: View {
@@ -68,6 +77,7 @@ private struct chipsView: View {
         HStack {
             Spacer()
             DetailsViewChip(iconName: .calendarIcon, label: movie.releaseDate )
+                .accessibilityLabel(Text("Year of release \(movie.releaseDate)"))
             Text("|")
                 .foregroundStyle(.clear)
                 .background(
@@ -75,7 +85,12 @@ private struct chipsView: View {
                         .frame(width: 1)
                         .foregroundStyle(.secondaryText)
                 )
-            DetailsViewChip(iconName: .actionIcon, label: movie.voteAverage.description )
+                .accessibilityLabel(Text(" "))
+            DetailsViewChip(
+                iconName: .actionIcon,
+                label: movie.voteAverage.description
+            )
+            .accessibilityLabel(Text("Averate rating \(movie.voteAverage.formatted(.number))"))
             Spacer()
         }
     }

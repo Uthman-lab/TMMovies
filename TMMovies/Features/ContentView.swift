@@ -53,6 +53,8 @@ struct TabBarItem: View {
             Text(label)
                 .foregroundColor(.primary)
         }
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel(Text(label))
     }
 }
 

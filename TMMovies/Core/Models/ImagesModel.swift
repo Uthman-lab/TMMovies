@@ -15,8 +15,8 @@ struct MediaDetails: Codable {
 }
 
 struct Backdrop: Codable, Identifiable {
-    var id: UUID {
-        UUID()
+    var id: String {
+        filePath
     }
     let aspectRatio: Double
     let height: Int
@@ -42,8 +42,8 @@ struct Logo: Codable {
 }
 
 struct Poster: Codable, Identifiable {
-    var id: UUID {
-        UUID()
+    var id: String {
+        filePath
     }
     let aspectRatio: Double
     let height: Int

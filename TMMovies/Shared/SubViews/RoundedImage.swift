@@ -28,6 +28,7 @@ struct RoundedImage: View {
                     .customFont(.medium, size: 50)
             }
         }
+        .accessibilityElement(children: .combine)
     }
 }
 
