@@ -17,7 +17,11 @@ struct WishListView: View {
                         if wishViewModel.wishList.isEmpty {
                             HStack {
                                 Spacer()
-                                Image(.noResultsIcon)
+                                CustomErrorView(
+                                    image: .noResultsIcon,
+                                    title: "Watch list is empty",
+                                    message: "Go to movie details page to add movies to your watchlist"
+                                )
                                 Spacer()
                             }
                         } else {

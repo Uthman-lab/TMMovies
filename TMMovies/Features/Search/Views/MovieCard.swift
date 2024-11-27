@@ -12,6 +12,7 @@ struct MovieCard: View {
     var body: some View {
         HStack(spacing: 12) {
             RoundedImage(url: movie.posterImage)
+                .accessibilityLabel(Text("Poster for \(movie.title)"))
                 .frame(width: 95)
             VStack(alignment: .leading, spacing: 14) {
                 Text(movie.title)
@@ -21,28 +22,31 @@ struct MovieCard: View {
                     IconLabelView(
                         iconName: .star,
                         label: "\(movie.voteAverage)",
-                        color: .rating
+                        color: .rating,
+                        accessibilityLabelLabel: "Vote"
                     )
                     IconLabelView(
                         iconName: .calendarIcon,
-                        label: "\(movie.releaseDate)"
+                        label: "\(movie.releaseDate)", 
+                        accessibilityLabelLabel: "Release date"
                     )
                     HStack {
                         if movie.adult {
-                                   Label("18+ Adults Only", systemImage: "lock.fill")
-                                       .foregroundColor(.red)
-                               } else {
-                                   Label("Unknown", systemImage: "questionmark.circle.fill")
-                                       .foregroundColor(.primaryText)
-                               }
-                           }
-                           .font(.caption)
-                           .padding(.vertical, 4)
-                           .padding(.horizontal, 8)
-                           .background(Color(.searchField))
-                           .cornerRadius(8)
+                            Label("18+ Adults Only", systemImage: "lock.fill")
+                                .foregroundColor(.red)
+                        } else {
+                            Label("Unknown", systemImage: "questionmark.circle.fill")
+                                .foregroundColor(.primaryText)
+                        }
+                    }
+                    .font(.caption)
+                    .padding(.vertical, 4)
+                    .padding(.horizontal, 8)
+                    .background(Color(.searchField))
+                    .cornerRadius(8)
                     .customFont(.medium, size: 20)
                     .foregroundStyle(.primaryText)
+                    .accessibilityLabel(Text("Movie rating: \(movie.adult ? " 18+ Adults Only" : "unknown")"))
                 }
             }
             Spacer()
@@ -55,6 +59,7 @@ private struct IconLabelView: View {
     let iconName: ImageResource
     let label: String
     var color: Color = .primaryText
+    let accessibilityLabelLabel: String
     var body: some View {
         HStack {
             Image(iconName)
@@ -64,7 +69,8 @@ private struct IconLabelView: View {
                 .lineLimit(1)
         }
         .foregroundStyle(color)
-
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel(Text("\(accessibilityLabelLabel): \(label)"))
     }
 }
 

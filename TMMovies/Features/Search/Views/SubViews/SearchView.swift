@@ -57,11 +57,13 @@ struct MoviesResultsView: View {
     var body: some View {
         ScrollView {
             LazyVStack(spacing: 24) {
-                ForEach(movies) { movie in
+                ForEach(Array(movies.enumerated()), id: \.offset) { index, movie in
                     NavigationLink(destination: {
                      DetailsView(movie: movie)
                     }, label: {
                         MovieCard(movie: movie)
+                            .accessibilityElement(children: .combine)
+                            .accessibilityHint("movie \(index + 1) of \(movies.count)")
                     })
                 }
                 if let error = searchViewModel.paginationError {
@@ -114,6 +116,7 @@ struct CustomErrorView: View {
         VStack(spacing: 12) {
             Spacer()
             Image(image)
+                .accessibilityHidden(true)
             Text(title)
                 .customFont(.semiBold, size: 16)
                 .foregroundStyle(.primaryText)

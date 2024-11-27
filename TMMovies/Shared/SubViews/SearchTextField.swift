@@ -10,16 +10,21 @@ import SwiftUI
 struct SearchTextField: View {
     @Binding var text: String
     var action: () -> Void = {}
+    
     var body: some View {
         HStack {
             TextField(text: $text) {
                 Text("Search".lowercased())
                     .foregroundStyle(Color(.primaryText))
             }
+            .accessibilityLabel(Text("Search Field"))
+            .accessibilityHint(Text("Enter text to search"))
+            .foregroundStyle(Color(.primaryText))
             .onChange(of: text) {
-                action()
-            }
+                    action()
+                }
             Image("searchIcon")
+                .accessibilityHidden(true)
         }
         .foregroundColor(Color(.primaryText))
         .frame(height: 42)
@@ -27,6 +32,7 @@ struct SearchTextField: View {
         .padding(.trailing, 15)
         .background(Color(.searchField))
         .clipShape(.rect(cornerRadius: 16))
+        .accessibilityElement(children: .combine)
     }
 }
 
