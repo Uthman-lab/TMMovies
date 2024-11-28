@@ -14,7 +14,6 @@ final class SettingsViewModel: ObservableObject {
     
     private init() {
         getTheme()
-        getLanguage()
     }
     
     // MARK: - private variables
@@ -25,16 +24,6 @@ final class SettingsViewModel: ObservableObject {
     
     static let main = SettingsViewModel()
     @Published var selectedTheme: Theme = .system
-    @Published var selectedLanguage: DeviceLanguage? = DeviceLanguage(
-        name: "English",
-        code: "en"
-    ) {
-        didSet {
-            if let value = selectedLanguage {
-                setLanguage(language: value)
-            }
-        }
-    }
     
     // MARK: - public methods
     
@@ -56,37 +45,6 @@ final class SettingsViewModel: ObservableObject {
             selectedTheme = Theme.dark
         }
     }
-    
-    func setLanguage(language: DeviceLanguage) {
-        defaults.store(
-            for: .language,
-            value: [language.name, language.code]
-        )
-    }
-    
-    func getLanguage() {
-        guard let langStore = defaults.getValue(
-            for: .language
-        ) as? [String] else {
-            return
-        }
-        selectedLanguage = DeviceLanguage(
-            name: langStore[0], code: langStore[1])
-    }
-    
-    func loadLanguages() -> [DeviceLanguage] {
-        Set(Locale.availableIdentifiers.compactMap { identifier in
-            let locale = Locale(identifier: identifier)
-            guard let code = locale.language.languageCode?.identifier else { return nil }
-            return DeviceLanguage(
-                name: locale.localizedString(
-                    forLanguageCode: locale.identifier
-                ) ?? "",
-                code: code
-            )
-        }).sorted { $0.name < $1.name }
-    }
-    
 }
 
 enum Theme: Int, CaseIterable, Identifiable {
