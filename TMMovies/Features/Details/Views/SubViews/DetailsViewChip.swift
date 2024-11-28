@@ -10,9 +10,12 @@ import SwiftUI
 struct DetailsViewChip: View {
     let iconName: ImageResource
     let label: String
+    @ScaledMetric var iconSize = 12
     var body: some View {
         HStack(alignment: .center) {
             Image(iconName)
+                .resizable()
+                .frame(width: iconSize, height: iconSize)
             Text(label)
         }
         .foregroundStyle(Color(.secondaryText))

@@ -92,7 +92,7 @@ struct NoResultsView: View {
     var body: some View {
         CustomErrorView(
             image: .errorIcon,
-            title: error ?? "we are sorry, we can not find the movie :(",
+            title: error ?? "we are sorry, we can not find the movie in TMDB's database :(",
             message: "Find your movie by Type title, categories, years, etc"
         )
     }

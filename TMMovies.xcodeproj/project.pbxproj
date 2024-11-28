@@ -337,8 +337,8 @@
 		C08C7AE22CE4E77400D94350 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C08C7AE32CE4E78000D94350 /* SearchView.swift */,
 				C0CD32142CF4810600F1DDF0 /* SubViews */,
-				C08C7AE52CE4E79000D94350 /* MovieCard.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -386,7 +386,7 @@
 		C0CD32142CF4810600F1DDF0 /* SubViews */ = {
 			isa = PBXGroup;
 			children = (
-				C08C7AE32CE4E78000D94350 /* SearchView.swift */,
+				C08C7AE52CE4E79000D94350 /* MovieCard.swift */,
 			);
 			path = SubViews;
 			sourceTree = "<group>";
