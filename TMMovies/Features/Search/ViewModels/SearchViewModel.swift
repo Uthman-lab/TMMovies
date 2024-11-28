@@ -32,17 +32,11 @@ final class SearchViewModel: ObservableObject {
     }
 
     func search(loadMore: Bool = false) {
-
-        do {
             guard !isLastPage else {
                 return
             }
             setLoadingState(loadMore: loadMore)
-            try searchRequest(loadMore: loadMore)
-        } catch {
-            setErrorState(loadMore: loadMore)
-            debugPrint(error)
-        }
+            searchRequest(loadMore: loadMore)
     }
 
     // MARK: - private methods
@@ -58,8 +52,8 @@ final class SearchViewModel: ObservableObject {
         }
     }
 
-    private func searchRequest(loadMore: Bool) throws {
-        try movieAPI.searchMovies(text: text.lowercased())
+    private func searchRequest(loadMore: Bool) {
+         movieAPI.searchMovies(text: text.lowercased())
             .sink(receiveCompletion: { completion in
                 DispatchQueue.main.async { [weak self] in
                     switch completion {
@@ -73,10 +67,14 @@ final class SearchViewModel: ObservableObject {
 
             }, receiveValue: { moviesResult in
                 DispatchQueue.main.async { [weak self] in
-                    self?.setMovies(
-                        loadMore: loadMore,
-                        moviesResult: moviesResult
-                    )
+                    if moviesResult.movies.isEmpty {
+                        self?.searchState = .error(message: AppStrings.noResultFound)
+                    } else {
+                        self?.setMovies(
+                            loadMore: loadMore,
+                            moviesResult: moviesResult
+                        )
+                    }
                 }
             })
             .store(in: &cancellables)
@@ -122,5 +120,5 @@ enum SearchState {
 
 class AppStrings {
     static let errorMessage = "Oops, Something went wrong!"
-    static let noResultFound = "No Results found!"
+    static let noResultFound = "we are sorry, we can not find the movie in TMDB's database :("
 }
