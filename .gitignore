@@ -1,1 +1,20 @@
 **/Secrets.xcconfig
+**/GoogleService-Info.plist
+
+# CocoaPods
+Pods/
+Podfile.lock
+
+# Xcode Derived Data and Temporary Files
+DerivedData/
+xcuserdata/
+*.xcuserstate
+
+# Swift Build Artifacts
+*.swiftsourceinfo
+*.swiftmodule
+*.swiftdoc
+
+# Xcode Temporary Files
+*.swp
+*.tmp

@@ -68,6 +68,7 @@ final class SearchViewModel: ObservableObject {
             }, receiveValue: { moviesResult in
                 DispatchQueue.main.async { [weak self] in
                     if moviesResult.movies.isEmpty {
+                        AnalyticsService.shared.sendNoSearchFound(word: self?.text ?? "")
                         self?.searchState = .error(message: AppStrings.noResultFound)
                     } else {
                         self?.setMovies(
