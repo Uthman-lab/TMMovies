@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 struct VideoResponse: Codable {
     let id: Int
     let results: [MovieVideo]
@@ -34,7 +33,7 @@ extension MovieVideo {
     var youtubeURL: URL? {
         URL(string: "https://www.youtube.com/embed/\(key)")
     }
-    
+
     var thumbNailURL: URL? {
         URL(string: "https://img.youtube.com/vi/\(key)/hqdefault.jpg")
     }
@@ -54,4 +53,3 @@ extension MovieVideo {
         )
     }
 }
-

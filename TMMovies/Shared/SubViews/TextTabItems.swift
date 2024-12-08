@@ -17,27 +17,26 @@ struct TextTabItem: View {
             withAnimation {
                 action()
             }
-        }) {
-            VStack(spacing: 4) {
-                Text(text)
-                    .customFont(.medium, size: 14)
-                    .foregroundStyle(Color(.primaryText))
-                if selectedTab == text {
+        }, label: {
+                VStack(spacing: 4) {
                     Text(text)
                         .customFont(.medium, size: 14)
-                        .foregroundStyle(.clear)
-                        .frame(height: 4)
-                        .background(
-                            Rectangle()
-                                .foregroundStyle(Color(.secondaryIcon))
-                        )
+                        .foregroundStyle(Color(.primaryText))
+                    if selectedTab == text {
+                        Text(text)
+                            .customFont(.medium, size: 14)
+                            .foregroundStyle(.clear)
+                            .frame(height: 4)
+                            .background(
+                                Rectangle()
+                                    .foregroundStyle(Color(.secondaryIcon))
+                            )
+                    }
                 }
-            }
-        }
+        })
         .accessibilityElement(children: .combine)
     }
 }
-
 
 #Preview {
     TextTabItem(text: "Hello", selectedTab: .constant("Hello"), action: {})

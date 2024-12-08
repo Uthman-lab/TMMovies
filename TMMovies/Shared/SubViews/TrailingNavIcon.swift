@@ -51,7 +51,7 @@ extension View {
         self.modifier(
                 TrailingNavIconModifier(
                     icon: icon,
-                    placement: placement, 
+                    placement: placement,
                     accessibilityLabel: accessibilityLabel,
                     onTap: onTap
                 )

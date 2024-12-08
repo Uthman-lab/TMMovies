@@ -46,7 +46,7 @@ extension CastMember {
     var avatarImage: URL? {
         APIConfiguration.main.parseImageURL(path: self.profilePath ?? "")
     }
-    
+
     static var dummyData: [CastMember] {
         [
             CastMember(

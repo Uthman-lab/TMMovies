@@ -6,20 +6,20 @@
 //
 
 import Foundation
-import Firebase
 import FirebaseAnalytics
+import FirebaseCore
 
 final class AnalyticsService {
     private init() { }
     static let shared = AnalyticsService()
-    
+
     func startFirebaseServices() {
         FirebaseApp.configure()
     }
-    
+
     func sendNoSearchFound(word: String) {
         Analytics.logEvent("failed_search", parameters: [
-            AnalyticsParameterSearchTerm: "test_query",
+            AnalyticsParameterSearchTerm: word,
             "search_result": "no_results"
         ])
     }

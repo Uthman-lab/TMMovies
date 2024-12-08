@@ -17,7 +17,7 @@ struct GenreTabItem: View {
             withAnimation {
                 action()
             }
-        }) {
+        }, label: {
             VStack(spacing: 4) {
                 Text(genre.text)
                     .customFont(.medium, size: 14)
@@ -33,7 +33,7 @@ struct GenreTabItem: View {
                         )
                 }
             }
-        }
+        })
     }
 }
 

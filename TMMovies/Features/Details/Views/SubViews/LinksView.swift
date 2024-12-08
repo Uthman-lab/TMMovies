@@ -40,23 +40,23 @@ struct LinkIcon: View {
     let source: ImageSource
     @State var showSafariView = false
     var urlToOpen: URL?
-    
+
     var body: some View {
         Button(action: {
             showSafariView = true
-        }) {
+        }, label: {
             switch source {
             case .system(let name):
                 Image(systemName: name)
                     .padding(12)
                     .background(.card)
-                   
+
             case .asset(let name):
                 Image(name)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
             }
-        }
+        })
         .clipShape(.rect(cornerRadius: 8))
         .frame(minHeight: 40, maxHeight: 40)
         .accessibilityElement()

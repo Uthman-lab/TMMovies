@@ -35,7 +35,7 @@ struct AboutMovie: View {
 
 struct MovieSubInfoView: View {
     @Binding var movieDetails: MovieDetails?
-    
+
     var body: some View {
         HStack(spacing: 18) {
             VStack(alignment: .leading) {
@@ -48,11 +48,11 @@ struct MovieSubInfoView: View {
             VStack(alignment: .leading) {
                 Text(movieDetails?.status ?? "")
                 Text(movieDetails?.language ?? "")
-                Text(movieDetails?.budget.formatted(.currency(code: "usd")) ?? "")
-                Text(movieDetails?.revenue.formatted(.currency(code: "usd")) ?? "")
+                Text(movieDetails?.budgetString ?? "")
+                Text(movieDetails?.revenueString ?? "")
             }
             .foregroundStyle(.primaryText)
-            
+
         }
         .customFont(.medium, size: 12)
     }
@@ -102,9 +102,9 @@ struct MovieImageView: View {
     var body: some View {
         Button(action: {
             enlargeImage = true
-        }) {
+        }, label: {
             RoundedImage(url: url)
-        }
+        })
         .navigationDestination(isPresented: $enlargeImage) {
             KFImage(url)
                 .useCustomBackButton()

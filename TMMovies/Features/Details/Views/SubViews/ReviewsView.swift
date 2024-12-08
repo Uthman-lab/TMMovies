@@ -35,7 +35,7 @@ struct ReviewCard: View {
                     .aspectRatio(contentMode: .fill)
                     .clipShape(.circle)
                     .frame(width: 44, height: 44)
-                    
+
                 Text("\(review.authorDetails.rating)")
                     .customFont(.medium, size: 12)
                     .foregroundStyle(.blue)

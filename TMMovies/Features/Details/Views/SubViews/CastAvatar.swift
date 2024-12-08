@@ -40,7 +40,7 @@ struct CastAvatar: View {
             withAnimation {
                 showDetails.toggle()
             }
-        }) {
+        }, label: {
             VStack(alignment: .leading) {
                 KFImage(castMember.avatarImage)
                     .placeholder {
@@ -54,7 +54,7 @@ struct CastAvatar: View {
 
                 VStack(alignment: .leading) {
                     CastTile(label: "Name", value: castMember.name)
-                    
+
                     if showDetails {
                         CastTile(label: "Character", value: castMember.character)
                         CastTile(label: "Known For", value: castMember.knownForDepartment)
@@ -62,13 +62,12 @@ struct CastAvatar: View {
                         CastTile(label: "Adult Actor", value: castMember.adult ? "Yes" : "No")
                     }
                 }
-                
+
             }
-        }
+        })
         .accessibilityHint("Double-tap to \(showDetails ? "hide" : "view") details")
     }
 }
-
 
 struct CastTile: View {
     let label: String

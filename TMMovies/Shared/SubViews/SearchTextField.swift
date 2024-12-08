@@ -10,7 +10,7 @@ import SwiftUI
 struct SearchTextField: View {
     @Binding var text: String
     var action: () -> Void = {}
-    
+
     var body: some View {
         HStack {
             TextField(text: $text) {

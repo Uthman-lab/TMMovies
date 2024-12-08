@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 // MARK: - Movie Model
 struct MovieDetails: Codable, Identifiable {
     let adult: Bool
@@ -95,35 +94,34 @@ struct ProductionCompany: Codable {
 }
 
 struct ProductionCountry: Codable {
-    let iso3166_1: String
+    let iso31661: String
     let name: String
     enum CodingKeys: String, CodingKey {
-        case iso3166_1 = "iso_3166_1"
+        case iso31661 = "iso_3166_1"
         case name
     }
 }
 
 struct Language: Codable {
     let englishName: String
-    let iso639_1: String
+    let iso6391: String
     let name: String
     enum CodingKeys: String, CodingKey {
         case englishName = "english_name"
-        case iso639_1 = "iso_639_1"
+        case iso6391 = "iso_639_1"
         case name
     }
 }
-
 
 extension MovieDetails {
     var imdbURL: URL? {
         URL(string: "https://www.imdb.com/title/\(imdbID)/")
     }
-    
+
     var homePageURL: URL? {
         URL(string: homepage)
     }
-    
+
     var language: String {
         Locale.current.localizedString(forLanguageCode: originalLanguage) ?? ""
     }
@@ -144,21 +142,39 @@ extension MovieDetails {
             originCountry: ["US"],
             originalLanguage: "en",
             originalTitle: "My Old Ass",
-            overview: "An 18th birthday mushroom trip brings free-spirited Elliott face-to-face with her wisecracking 39-year-old self...",
+            overview: "An 18th birthday mushroom trip brings free-spirited Elliott face-to-face with" +
+            " her wisecracking 39-year-old self...",
             popularity: 300.06,
             posterPath: "/yUs4Sw9AyTg2sA1qWBkNpD2mGSj.jpg",
             productionCompanies: [
-                ProductionCompany(id: 9350, logoPath: "/xz60JVoUHpOeg1cJbxzMJiwbuL7.png", name: "Indian Paintbrush", originCountry: "US"),
-                ProductionCompany(id: 82968, logoPath: "/gRROMOG5bpF6TIDMbfaa5gnFFzl.png", name: "LuckyChap Entertainment", originCountry: "US")
+                ProductionCompany(
+                    id: 9350,
+                    logoPath: "/xz60JVoUHpOeg1cJbxzMJiwbuL7.png",
+                    name: "Indian Paintbrush",
+                    originCountry: "US"
+                ),
+                ProductionCompany(
+                    id: 82968,
+                    logoPath: "/gRROMOG5bpF6TIDMbfaa5gnFFzl.png",
+                    name: "LuckyChap Entertainment",
+                    originCountry: "US"
+                )
             ],
             productionCountries: [
-                ProductionCountry(iso3166_1: "US", name: "United States of America")
+                ProductionCountry(
+                    iso31661: "US",
+                    name: "United States of America"
+                )
             ],
             releaseDate: "2024-09-13",
             revenue: 5671147,
             runtime: 89,
             spokenLanguages: [
-                Language(englishName: "English", iso639_1: "en", name: "English")
+                Language(
+                    englishName: "English",
+                    iso6391: "en",
+                    name: "English"
+                )
             ],
             status: "Released",
             tagline: "What would you ask your older self?",
@@ -167,5 +183,22 @@ extension MovieDetails {
             voteAverage: 6.7,
             voteCount: 123
         )
+    }
+}
+
+extension MovieDetails {
+    var revenueString: String {
+        convertMoneyIntToString(revenue)
+    }
+    
+    var budgetString: String {
+        convertMoneyIntToString(budget)
+    }
+    
+    private func convertMoneyIntToString(_ money: Int) -> String {
+        if money == 0 {
+           return "N/A"
+        }
+        return money.formatted(.currency(code: "usd"))
     }
 }

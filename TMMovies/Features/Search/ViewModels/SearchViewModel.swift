@@ -18,7 +18,7 @@ final class SearchViewModel: ObservableObject {
     @Published private(set) var isLastPage = false
 
     // MARK: - private variables
-    
+
     private let movieAPI = APIService()
     private var movies: [Movie] = []
     private var cancellables = Set<AnyCancellable>()
@@ -117,9 +117,4 @@ enum SearchState {
     case loading
     case empty
     case error(message: String)
-}
-
-class AppStrings {
-    static let errorMessage = "Oops, Something went wrong!"
-    static let noResultFound = "we are sorry, we can not find the movie in TMDB's database :("
 }

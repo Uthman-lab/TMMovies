@@ -9,21 +9,21 @@ import SwiftUI
 
 struct DetailsView: View {
     // MARK: - life cycle methods
-    
+
     init(movie: Movie) {
         self.movie = movie
         _detailsViewModel = StateObject(wrappedValue: DetailsViewModel(movie: movie))
     }
-    
+
     // MARK: - variables
-    
+
     let movie: Movie
     @ObservedObject var wishViewModel = WishViewModel.shared
     @State var selectedSection: String? = movieDetailsSections.first
     @StateObject var detailsViewModel: DetailsViewModel
-    
+
     // MARK: - view
-    
+
     var body: some View {
         PageWithBackground {
             VStack(alignment: .leading, spacing: 24) {
@@ -34,7 +34,7 @@ struct DetailsView: View {
                 )
                 .accessibilityLabel("\(movie.title) backdrop and poster images ")
                 VStack(alignment: .leading, spacing: 24) {
-                    chipsView(movie: movie)
+                    ChipsView(movie: movie)
                     TabSection(
                         selectedSection: $selectedSection,
                         sections: movieDetailsSections
@@ -60,9 +60,9 @@ struct DetailsView: View {
                     wishViewModel.addMovieToWish(movie)
                 }
             })
-        
+
     }
-    
+
     private func accessibilityText(movie: Movie) -> String {
         if wishViewModel.containsMovie(movie) {
             return "Remove from wishlist toggle"
@@ -71,7 +71,7 @@ struct DetailsView: View {
     }
 }
 
-private struct chipsView: View {
+private struct ChipsView: View {
     let movie: Movie
     var body: some View {
         HStack {

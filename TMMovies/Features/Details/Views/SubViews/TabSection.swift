@@ -25,7 +25,6 @@ struct TabSection: View {
     }
 }
 
-
 #Preview {
     TabSection(
         selectedSection: .constant("hello"),

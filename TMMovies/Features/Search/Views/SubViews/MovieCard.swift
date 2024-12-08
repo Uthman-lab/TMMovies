@@ -27,7 +27,7 @@ struct MovieCard: View {
                     )
                     IconLabelView(
                         iconName: .calendarIcon,
-                        label: "\(movie.releaseDate)", 
+                        label: "\(movie.releaseDate)",
                         accessibilityLabelLabel: "Release date"
                     )
                     HStack {

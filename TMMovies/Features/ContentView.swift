@@ -44,7 +44,7 @@ struct ContentView: View {
 struct TabBarItem: View {
     let iconName: ImageResource
     let label: String
-    
+
     var body: some View {
         VStack {
             Image(iconName)

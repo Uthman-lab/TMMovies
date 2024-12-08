@@ -11,7 +11,7 @@ struct VideosView: View {
     @State var showMedia = false
     @State var mediaURL: URL?
     @Binding var videos: [MovieVideo]
-    
+
     var body: some View {
         MediaScrollView(items: videos) { video in
             VideoCard(video: video, action: {
@@ -37,7 +37,7 @@ struct VideosView: View {
 private struct VideoCard: View {
     let video: MovieVideo
     let action: () -> Void
-    
+
     var body: some View {
         VStack(alignment: .leading) {
             Button(action: action) {

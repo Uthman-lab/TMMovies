@@ -125,8 +125,7 @@ struct TabBarMovies: View {
                     if movies.isEmpty {
                         loadingState()
                     } else {
-                        ForEach(Array(movies.enumerated()), id: \.offset) {
-                            (index, movie) in
+                        ForEach(Array(movies.enumerated()), id: \.offset) { (index, movie) in
                             NavigationLink(destination: {
                                 DetailsView(movie: movie)
                             }, label: {
@@ -149,8 +148,7 @@ struct TabBarMovies: View {
     }
 
     func loadingState() -> some View {
-        ForEach(1..<5) {
-            _ in
+        ForEach(1..<5) { _ in
             RoundedImage(url: nil)
                 .frame(height: 145)
         }
