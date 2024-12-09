@@ -53,6 +53,10 @@ final class SearchViewModel: ObservableObject {
     }
 
     private func searchRequest(loadMore: Bool) {
+        if text.isEmpty {
+            searchState = .empty
+            return
+        }
          movieAPI.searchMovies(text: text.lowercased())
             .sink(receiveCompletion: { completion in
                 DispatchQueue.main.async { [weak self] in

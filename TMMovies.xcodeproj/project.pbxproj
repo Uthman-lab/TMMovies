@@ -375,17 +375,9 @@
 		C0AC34612CFF0F8200068A4F /* AnalyticsService */ = {
 			isa = PBXGroup;
 			children = (
-				C0AC34622CFF0F9300068A4F /* New Group */,
 				C0AC34632CFF0FA600068A4F /* AnalyticsService.swift */,
 			);
 			path = AnalyticsService;
-			sourceTree = "<group>";
-		};
-		C0AC34622CFF0F9300068A4F /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "New Group";
 			sourceTree = "<group>";
 		};
 		C0B479592CE23C8000323E0C /* SubViews */ = {
