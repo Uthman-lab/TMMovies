@@ -101,6 +101,37 @@ The Movie App utilizes the TMDB API to access movie data.  A valid API key is re
     3. Navigate to the API section.
     4. Apply for an API key.
     5. Once approved, your API key will be visible on the API settings page.
+
+
+## V. Screenshots
+
+### Light Mode
+
+<div style="display: flex; flex-wrap: wrap; 
+background-color: #f0f0f0;
+padding: 8px;
+justify-content: space-around;">
+  <img src="Previews/light_mode/home_screen.png" alt="Home Screen" style="max-width:150px; max-height:400px;">
+  <img src="Previews/light_mode/movie_details_screen.png" alt="Movie Detail Screen" style="max-width:150px; max-height:400px;">
+  <img src="Previews/light_mode/empty_search_screen.png" alt="Empty Search Screen" style="max-width:150px; max-height:400px;">
+  <img src="Previews/light_mode/search_screen.png" alt="Search Screen" style="max-width:150px; max-height:400px;">
+  <img src="Previews/light_mode/settings_screen.png" alt="Settings Screen" style="max-width:150px; max-height:400px;">
+  <img src="Previews/light_mode/wish_screen.png" alt="Wishlist Screen" style="max-width:150px; max-height:400px;">
+</div>
+
+### Dark Mode
+
+<div style="display: flex; flex-wrap: wrap; 
+padding: 8px;
+background-color: #f0f0f0;
+justify-content: space-around;">
+  <img src="Previews/dark_mode/home_screen.png" alt="Home Screen" style="max-width:150px; max-height:400px;">
+  <img src="Previews/dark_mode/movie_detail_screen.png" alt="Movie Detail Screen" style="max-width:150px; max-height:400px;">
+  <img src="Previews/dark_mode/empty_search_screen.png" alt="Empty Search Screen" style="max-width:150px; max-height:400px;">
+  <img src="Previews/dark_mode/search_screen.png" alt="Search Screen" style="max-width:150px; max-height:400px;">
+  <img src="Previews/dark_mode/settings_screen.png" alt="Settings Screen" style="max-width:150px; max-height:400px;">
+  <img src="Previews/dark_mode/wish_screen.png" alt="Wishlist Screen" style="max-width:150px; max-height:400px;">
+</div>
 ## V. Future Enhancements
 
 * **User Authentication:** Implement user authentication (e.g., using Firebase, and TMDB sessions) to allow users to log in and sync their wishlists across devices.
